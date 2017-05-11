@@ -165,7 +165,7 @@ end
 
 local function dedent(result)
     local indent = result.indent
-    if indent then result.indent = sub(indent, 3) end
+    if indent then result.indent = sub(indent, 5) end
 end
 
 local function insert_indent(result, v)
