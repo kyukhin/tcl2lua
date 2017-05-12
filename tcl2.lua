@@ -352,7 +352,7 @@ end
 
 local function insert_sql(result, sql, force_multiline)
     if type(sql) == 'string' then
-        insert(result, safestr(reindent_sql(result, sql, force_multiline)))
+        insert_indent(result, safestr(reindent_sql(result, sql, force_multiline)))
     elseif node_type(sql) == 'subst' then
         local template, params = translate_subst(sql)
         if #params == 1 and not find(template, '\n') then
@@ -936,43 +936,49 @@ function cmdfunc.do_test(result, cmd)
         local nested = nested[1]
         if #nested == 2 and match(nested[1], 'sql') then
                 -- emit a shorter form
-                insert(result, format('test:do_%s_test(', nested[1]))
-                insert_expr(result, cmd[2])
-                insert(result, ', ')
+                insert(result, format('test:do_%s_test(\n', nested[1]))
+                indent(result)
+                insert_indent(result, cmd[2]..",\n")
                 insert_sql(result, nested[2], 'force_multi')
                 insert(result, ', ')
                 insert_result(result, cmd[4], cmd[2])
                 insert(result, ')\n')
+                dedent(result)
                 return true
         end
     end
     
-    insert(result, 'test:do_test(');
-    insert_expr(result, cmd[2])
-    insert(result, ', function()\n')
+    insert(result, 'test:do_test(\n');
+    indent(result)
+    insert_indent(result, cmd[2]..",\n")
+    insert_indent(result, 'function()\n')
 
     indent(result)
     tolua(result, nested)
-
     dedent(result)
 
     insert_indent(result, 'end, ')
+
     insert_result(result, cmd[4], cmd[2])
+    dedent(result)
     insert(result, ')\n')
     return true
 end
 
+
+
 function cmdfunc.do_execsql_test(result, cmd)
     if #cmd >= 3 then
-        insert(result, 'test:do_execsql_test(')
-        insert_expr(result, cmd[2])
-        insert(result, ', ')
+        insert(result, 'test:do_execsql_test(\n')
+        indent(result)
+        insert_indent(result, cmd[2]..",\n")
         insert_sql(result, cmd[3], 'force_multi')
         if cmd[4] then
             insert(result, ', ')
             insert_result(result, cmd[4], cmd[2])
         end
         insert(result, ')\n')
+        dedent(result)
         return true
     end
 end
