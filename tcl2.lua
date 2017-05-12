@@ -370,7 +370,7 @@ end
 
 local function insert_sql(result, sql, force_multiline)
     if type(sql) == 'string' then
-        insert(result, safestr(reindent_sql(result, sql, force_multiline)))
+        insert_indent(result, safestr(reindent_sql(result, sql, force_multiline)))
     elseif node_type(sql) == 'subst' then
         local template, params = translate_subst(sql)
         if #params == 1 and not find(template, '\n') then
@@ -1158,6 +1158,7 @@ function cmdfunc.do_test(result, cmd)
                 insert(result, ', ')
                 insert_result(result, cmd[4], cmd[2])
                 insert(result, ')\n')
+                dedent(result)
                 return true
         end
     end
@@ -1170,14 +1171,17 @@ function cmdfunc.do_test(result, cmd)
 
     indent(result)
     tolua(result, nested)
-
     dedent(result)
 
     insert_indent(result, 'end, ')
+
     insert_result(result, cmd[4], cmd[2])
+    dedent(result)
     insert(result, ')\n')
     return true
 end
+
+
 
 function cmdfunc.do_execsql_test(result, cmd)
     if #cmd >= 3 then
@@ -1191,6 +1195,7 @@ function cmdfunc.do_execsql_test(result, cmd)
             insert_result(result, cmd[4], cmd[2])
         end
         insert(result, ')\n')
+        dedent(result)
         return true
     end
 end
