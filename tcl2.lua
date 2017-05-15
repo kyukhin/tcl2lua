@@ -171,9 +171,14 @@ local function dedent(result)
 end
 
 local function insert_indent(result, v)
+    -- it is not necessary to add indent
+    -- if we trying to add smth to current line (no \n)
     local base = #result
-    result[base+1] = result.indent or ''
-    result[base+2] = v
+    if base == 0 or result[base]:sub(#result[base],1) == "\n" then
+        result[base+1] = result.indent or ''
+        base = base + 1
+    end
+    result[base+1] = v
 end
 
 -----------------------------------------------------------------------
