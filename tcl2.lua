@@ -169,9 +169,14 @@ local function dedent(result)
 end
 
 local function insert_indent(result, v)
+    -- it is not necessary to add indent
+    -- if we trying to add smth to current line (no \n)
     local base = #result
-    result[base+1] = result.indent or ''
-    result[base+2] = v
+    if base == 0 or result[base]:sub(#result[base],1) == "\n" then
+        result[base+1] = result.indent or ''
+        base = base + 1
+    end
+    result[base+1] = v
 end
 
 -----------------------------------------------------------------------
@@ -938,7 +943,7 @@ function cmdfunc.do_test(result, cmd)
                 -- emit a shorter form
                 insert(result, format('test:do_%s_test(\n', nested[1]))
                 indent(result)
-                insert_indent(result, cmd[2]..",\n")
+                insert_indent(result, '"'..cmd[2]..'",\n')
                 insert_sql(result, nested[2], 'force_multi')
                 insert(result, ', ')
                 insert_result(result, cmd[4], cmd[2])
@@ -950,7 +955,7 @@ function cmdfunc.do_test(result, cmd)
     
     insert(result, 'test:do_test(\n');
     indent(result)
-    insert_indent(result, cmd[2]..",\n")
+    insert_indent(result, '"'..cmd[2]..'",\n')
     insert_indent(result, 'function()\n')
 
     indent(result)
@@ -971,7 +976,7 @@ function cmdfunc.do_execsql_test(result, cmd)
     if #cmd >= 3 then
         insert(result, 'test:do_execsql_test(\n')
         indent(result)
-        insert_indent(result, cmd[2]..",\n")
+        insert_indent(result, '"'..cmd[2]..'",\n')
         insert_sql(result, cmd[3], 'force_multi')
         if cmd[4] then
             insert(result, ', ')
