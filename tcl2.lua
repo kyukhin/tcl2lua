@@ -167,16 +167,14 @@ local function dedent(result)
     local indent = result.indent
     if indent then result.indent = sub(indent, 5) end
 end
-
 local function insert_indent(result, v)
+    local base = #result
     -- it is not necessary to add indent
     -- if we trying to add smth to current line (no \n)
-    local base = #result
-    if base == 0 or result[base]:sub(#result[base],1) == "\n" then
-        result[base+1] = result.indent or ''
-        base = base + 1
+    if base ~=0 and string.find(result[base], "\n") then
+        insert(result, result.indent or '')
     end
-    result[base+1] = v
+    insert(result, v)
 end
 
 -----------------------------------------------------------------------
