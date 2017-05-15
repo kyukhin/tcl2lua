@@ -722,7 +722,7 @@ local function usercmd(result, cmd)
     if cmd[1] == 'finish_test' then
 	cmd[1] = 'test:finish_test'
     end
-    insert(result, cmd[1])
+    insert_indent(result, cmd[1])
     insert(result, '(')
     insert_list(result, cmd, 2)
     insert(result, ')')
@@ -734,7 +734,7 @@ function cmdfunc.proc(result, cmd)
         local line, name, params = node_line(cmd), cmd[2], cmd[3]
         
         local pos = #result
-        result[pos+1] = 'function '
+        result[pos+1] = 'local function '
         result[pos+2] = '<name placeholder>'
         result[pos+3] = '('
         result[pos+4] = '' -- params placeholder
@@ -988,13 +988,14 @@ end
 
 function cmdfunc.do_catchsql_test(result, cmd)
     if #cmd == 4 then
-        insert(result, 'test:do_catchsql_test(')
-        insert_expr(result, cmd[2])
-        insert(result, ', ')
+        insert(result, 'test:do_catchsql_test(\n')
+        indent(result)
+        insert_indent(result, '"'..cmd[2]..'",\n')
         insert_sql(result, cmd[3])
         insert(result, ', ')
         insert_result(result, cmd[4], cmd[2])
         insert(result, ')\n')
+        dedent(result)
         return true
     end
 end
