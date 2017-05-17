@@ -17,8 +17,12 @@ list=`ls *.test.lua`
 popd
 
 for i in $list ; do
-    echo "Converting... $i"
-    $TBIN $CONVERTER $SDIR/$i > $DDIR/$i
-    chmod +x $DDIR/$i
-    echo "Done"
+    (
+        echo "Converting... $i"
+        $TBIN $CONVERTER $SDIR/$i > $DDIR/$i
+        chmod +x $DDIR/$i
+        echo "Done"
+    ) &
 done
+
+wait
