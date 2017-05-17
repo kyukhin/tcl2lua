@@ -843,9 +843,9 @@ function cmdfunc.catch(result, cmd)
         return ignorecmd(result, cmd)
     end
     if #cmd == 2 then
-        insert(result, '({pcall(function()\n')
+        insert(result, 'pcall(function()\n')
         tolua(result, tcl_parse(cmd[2], node_line(cmd)))
-        insert(result, 'end)})[1]')
+        insert(result, 'end)')
         return true
     elseif #cmd == 3 and type(cmd[3]) == 'string' and
             not string.match(cmd[3], ' ') then
