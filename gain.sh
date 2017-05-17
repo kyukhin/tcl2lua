@@ -1,8 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 # Usage: $0 convert_suite_stderr convert_suite_dst_dir
 
 echo "fully processed files: $(grep -Rc X\! $2 | grep :0\$ | cut -d: -f1 | sed 's@^dst[^/]\+/@@' | wc -l)"
+grep -Rc X\! $2 | grep :0\$ | cut -d: -f1 | sed 's@^dst[^/]\+/@@'
 echo "unprocessed expressions: $((grep -v 'creating Jim interpretor\|\[total cmds\]' $1 | grep 'X!' | sort | cut -d: -f2 | tr '\n' '+'; echo 0) | bc)"
 echo
 
