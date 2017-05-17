@@ -1,3 +1,5 @@
+-- XXX: support {a b c d} lists form
+
 local max, min = math.max, math.min
 local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
 local find, rep, gmatch, lower = string.find, string.rep, string.gmatch, string.lower
@@ -259,7 +261,14 @@ end
 local function checkvar(var)
     if type(var) ~= 'string' then return end
     var = gsub(var, '^::', '')
-    return match(var, '^[_%a][_%w]*$') and var
+    local matched = match(var, '^[_%a][_%w]*$')
+    if not matched then
+        -- XXX: $foo(bar) shouldn't be matched here (with dollar sign), but
+        -- should be parsed as the expression; matching it here is the
+        -- workaround
+        matched = match(var, '^[_%a][_%w]*%(%$?[_%a][_%w]*%)$')
+    end
+    return matched and var
 end
 
 local function translate_subst(ast)
@@ -309,6 +318,15 @@ insert_expr = function(result, _1, _2)
         end
     else
         insert_literal(result, _2 and _1 or 'X!expr', ast)
+    end
+end
+
+local insert_list_expr
+insert_list_expr = function(result, ast)
+    if type(ast) == 'string' and match(ast, ' ') then
+        insert(result, '{' .. gsub(ast, ' ', ', ') .. '}')
+    else
+        insert_expr(result, ast)
     end
 end
 
@@ -399,10 +417,12 @@ local function ifhlp(result, cmd)
             i = i + 2
         elseif cmd[i+1] == 'elseif' then
             insert_indent(result, 'elseif ')
-            insert_x(result, 'X!expr01', cmd[i+2])
+            local expr_cmd = 'expr {' .. cmd[i+2] .. '}'
+            tolua(result, tcl_parse(expr_cmd, node_line(cmd)))
             insert(result, ' then\n')
             i = i + 3
         else
+            -- XXX: 'else' keyword in optional in TCL
             break
         end
     end
@@ -412,7 +432,18 @@ end
 
 cmdfunc['if'] = function(result, cmd)
     insert(result, 'if ')
-    insert_x(result, 'X!expr01', cmd[2])
+    local matches = {}
+    local is_str = type(cmd[2]) == 'string'
+    if is_str then
+        matches = {string.match(cmd[2], '^%[(.-)%]$')}
+    end
+    if is_str and #matches == 1 then
+        local subcmd = unpack(matches)
+        tolua(result, tcl_parse(subcmd, node_line(cmd)))
+    else
+        local expr_cmd = 'expr {' .. cmd[2] .. '}'
+        tolua(result, tcl_parse(expr_cmd, node_line(cmd)))
+    end
     insert(result, ' then\n')
     return ifhlp(result, cmd)
 end
@@ -420,7 +451,8 @@ end
 cmdfunc['while'] = function(result, cmd)
     if #cmd == 3 and type(cmd[3]) == 'string' then
         insert(result, 'while ');
-        insert_x(result, 'X!expr01', cmd[1])
+        local expr_cmd = 'expr {' .. cmd[2] .. '}'
+        tolua(result, tcl_parse(expr_cmd, node_line(cmd)))
         insert(result, ' do\n')
         indent(result)
         tolua(result, tcl_parse(cmd[3], node_line(cmd)))
@@ -467,6 +499,7 @@ end
 
 cmdfunc['for'] = function(result, cmd)
     if #cmd == 5 and type(cmd[5]) == 'string' then
+        -- XXX: impl via while
         insert(result, 'for _ in ');
         insert_x(result, 'X!for', {cmd[2], cmd[3], cmd[4]})
         insert(result, ' do\n')
@@ -480,8 +513,19 @@ end
 
 cmdfunc['foreach'] = function(result, cmd)
     if #cmd == 4 and type(cmd[4]) == 'string' then
-        insert(result, 'for _ in ');
-        insert_x(result, 'X!foreach', {cmd[2], cmd[3]})
+        local supported = type(cmd[2]) == 'string' and
+            not string.match(cmd[2], ' ')
+        supported = supported and type(cmd[3]) == 'table'
+        if supported then
+            local var = checkvar(cmd[2])
+            insert(result, ('for _, %s in '):format(var))
+            insert(result, 'ipairs(')
+            insert_expr(result, cmd[3])
+            insert(result, ')')
+        else
+            insert(result, 'for _ in ');
+            insert_x(result, 'X!foreach', {cmd[2], cmd[3]})
+        end
         insert(result, ' do\n')
         indent(result)
         tolua(result, tcl_parse(cmd[4], node_line(cmd)))
@@ -512,6 +556,40 @@ function cmdfunc.set(result, cmd)
         end
         return true
     end
+end
+
+function cmdfunc.incr(result, cmd)
+    local name = cmd[2]
+    local var = checkvar(name)
+    if #cmd <= 3 and var then
+        local val = cmd[3] or '1'
+        if node_type(cmd) == 'rcmd' or not var then
+            -- XXX
+        else
+            insert(result, var .. ' = ' .. var .. ' + ')
+            insert_expr(result, val)
+            return true
+        end
+    end
+end
+
+function cmdfunc.append(result, cmd)
+    local name = cmd[2]
+    local var = checkvar(name)
+    if not var then
+        return false
+    end
+    if #cmd < 3 then
+        return false
+    end
+    insert(result, var .. ' = ' .. var)
+    for i, expr in ipairs(cmd) do
+        if i >= 3 then
+            insert(result, ' .. ')
+            insert_expr(result, cmd[3])
+        end
+    end
+    return true
 end
 
 -----------------------------------------------------------------------
@@ -600,7 +678,11 @@ local function tcl_expr_ast(tokens)
         local tok = tokens[i]
         local def = exprtok[tok]
         if not def then
-            if match(tok, '^FN') then
+            if match(tok, '^FNRAND') then
+                -- zero args
+                insert(stack, { lower(sub(tok, 3)) })
+            elseif match(tok, '^FN') then
+                -- one arg
                 insert(stack, { lower(sub(tok, 3)), remove(stack) })
             else
                 return nil, tok
@@ -610,6 +692,75 @@ local function tcl_expr_ast(tokens)
         end
     end
     return remove(stack)
+end
+
+local function expr_ast_tolua(ast)
+    if type(ast) == 'number' then
+        if ast < 0 then
+            return true, '(' .. tostring(ast) .. ')'
+        end
+        return true, tostring(ast)
+    end
+    if type(ast) == 'string' then
+        return true, safestr(ast)
+    end
+    if #ast == 1 and type(ast[1]) == 'string' then
+        if ast[1] == 'rand' then
+            return true, 'math.random()'
+        end
+        local var = checkvar(ast[1])
+        return true, var
+    end
+    local lua = ''
+    local i = 1
+    while ast[i] do
+        if ast[i] == 'int' then
+            local ok, subexpr = expr_ast_tolua(ast[i + 1])
+            if not ok then return false end
+            lua = lua .. ('round_to_zero(%s)')
+                :format(subexpr, subexpr, subexpr)
+            i = i + 2
+        elseif ast[i] == '!' then
+            local ok, subexpr = expr_ast_tolua(ast[i + 1])
+            if not ok then return false end
+            lua = lua .. ('(not %s)'):format(subexpr)
+            i = i + 2
+        elseif ast[i] == 'eq' or ast[i] == 'ne' then
+            local ok, subexpr1 = expr_ast_tolua(ast[i + 1])
+            if not ok then return false end
+            local ok, subexpr2 = expr_ast_tolua(ast[i + 2])
+            if not ok then return false end
+            local op = ast[i] == 'eq' and '==' or '~='
+            lua = lua .. ('(%s %s %s)'):format(subexpr1, op, subexpr2)
+            i = i + 3
+        elseif type(ast[i]) == 'string' and (
+                string.match(ast[i], '^[+*/%-]$') or
+                ast[i] == '<' or ast[i] == '>' or
+                ast[i] == '<=' or ast[i] == '>=' or
+                ast[i] == '==' or ast[i] == '!=' or
+                ast[i] == '&&' or ast[i] == '||') then
+            local ok, subexpr1 = expr_ast_tolua(ast[i + 1])
+            if not ok then return false end
+            if ast[i + 2] == nil then
+                -- unary operation
+                if not string.match(ast[i], '^[+-]$') then return false end
+                lua = lua .. ('(%s%s)'):format(ast[i], subexpr1)
+                i = i + 2
+            else
+                -- binary operation
+                local ok, subexpr2 = expr_ast_tolua(ast[i + 2])
+                if not ok then return false end
+                local op = (ast[i] == '!=') and '~=' or
+                    (ast[i] == '&&') and 'and' or
+                    (ast[i] == '||') and 'or' or ast[i]
+                lua = lua .. ('(%s %s %s)'):format(subexpr1, op, subexpr2)
+                i = i + 3
+            end
+        else
+            return false
+        end
+    end
+    return true, lua
 end
 
 function cmdfunc.expr(result, cmd)
@@ -663,7 +814,12 @@ function cmdfunc.expr(result, cmd)
     if next(param_by_id) then return end
     local ast = tcl_expr_ast(tokens)
     if ast then
-        insert_x(result, "X!expr", ast)
+        local ok, lua = expr_ast_tolua(ast)
+        if ok then
+            insert(result, lua)
+        else
+            insert_x(result, "X!expr", ast)
+        end
         return true
     end
 end
@@ -685,6 +841,26 @@ end
 function cmdfunc.catch(result, cmd)
     if cmd[2] == 'unset' then
         return ignorecmd(result, cmd)
+    end
+    if #cmd == 2 then
+        insert(result, '({pcall(function()\n')
+        tolua(result, tcl_parse(cmd[2], node_line(cmd)))
+        insert(result, 'end)})[1]')
+        return true
+    elseif #cmd == 3 and type(cmd[3]) == 'string' and
+            not string.match(cmd[3], ' ') then
+        local var = checkvar(cmd[3])
+        insert(result, ([[
+(function()
+    local ok
+    ok, %s = pcall(function()
+]]):format(var) .. '\n')
+        tolua(result, tcl_parse(cmd[2], node_line(cmd)))
+        insert(result, [[
+    end)
+    return ok
+end)()]])
+        return true
     end
 end
 
@@ -713,6 +889,15 @@ function cmdfunc.lappend(result, cmd)
         insert(result, ')')
         return true
     end
+end
+
+function cmdfunc.lindex(result, cmd)
+    insert(result, 'test.lindex(')
+    insert_list_expr(result, cmd[2])
+    insert(result, ', ')
+    insert_list(result, cmd, 3)
+    insert(result, ')')
+    return true
 end
 
 local function usercmd(result, cmd)
@@ -788,10 +973,39 @@ function cmdfunc.ifcapable(result, cmd)
     if (n ~= 3 and n ~= 5) or type(cmd[3]) ~= 'string' then return end
     if n == 5 and (cmd[4] ~= 'else' or type(cmd[5]) ~= 'string') then return end
 
-    insert(result, 'if ')
-    insert_x(result, 'X!capable', cmd[2])
-    insert(result, ' then\n');
-    ifhlp(result, cmd)
+    local which_branch_insert
+    if string.match(cmd[2], '^[a-zA-Z][a-zA-Z0-9]*&&[a-zA-Z][a-zA-Z0-9]*$') or
+            string.match(cmd[2], '^![a-zA-Z][a-zA-Z0-9]*||![a-zA-Z][a-zA-Z0-9]*$') then
+        -- all possibilities assumed as supported
+        which_branch_insert = not string.match(cmd[2], '^!')
+    elseif string.match(cmd[2], '&&') or string.match(cmd[2], '||') then
+        insert(result, 'if ')
+        insert_x(result, 'X!capable', cmd[2])
+        insert(result, ' then\n');
+        ifhlp(result, cmd)
+        insert(result, '\n')
+        return true
+    else
+        -- all possibilities assumed as supported
+        which_branch_insert = not string.match(cmd[2], '^!')
+    end
+
+    local cur_branch = true
+    local i = cmd[3] == 'then' and 4 or 3
+    while cmd[i] do
+        if cur_branch == which_branch_insert then
+            indent(result)
+            tolua(result, tcl_parse(cmd[i], node_line(cmd)))
+            dedent(result)
+        end
+        if cmd[i+1] == 'else' then
+            cur_branch = false
+            i = i + 2
+        else
+            break
+        end
+    end
+
     insert(result, '\n')
     return true
 end

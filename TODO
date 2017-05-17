@@ -1,0 +1,2 @@
+for -> function() start; while cond do stat; iter; end end)()
+foreach
