@@ -1,3 +1,5 @@
+8_3_names.test.lua
+aggnested.test.lua
 analyze1.test.lua
 analyze3.test.lua
 analyze4.test.lua
