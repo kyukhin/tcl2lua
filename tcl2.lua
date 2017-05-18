@@ -7,6 +7,15 @@ local insert, remove, concat = table.insert, table.remove, table.concat
 local tclparser = require('tclparser')
 local json = require('json')
 
+-- globals
+-- -------
+
+local in_catchsql = false
+
+-- -------
+-- -------
+
+
 local file = ... and ... or 'select3.test'
 -- local file = 'select3.test'
 local source = io.open(file):read('*a')
@@ -553,7 +562,7 @@ function cmdfunc.set(result, cmd)
         return ignorecmd(result, cmd)
     end
     local var = checkvar(name)
-    if #cmd <= 3 and var then
+    if #cmd == 3 and var then
         local val = cmd[3] or nil_ref
         if node_type(cmd) == 'rcmd' or not var then
             insert(result, format('set('))
@@ -565,6 +574,12 @@ function cmdfunc.set(result, cmd)
             insert(result, var .. ' = ')
             insert_expr(result, val)
         end
+        return true
+    elseif #cmd == 2 and checkvar(var) then
+        if node_type(cmd) ~= 'rcmd' then
+            insert_indent(result, "return ")
+        end
+        insert(result, var)
         return true
     end
 end
@@ -878,9 +893,18 @@ end ]=]--
 
 local function insert_list(result, list, start)
     start = start or 1
+    local is_2nd_arg_list = in_catchsql and (list[1] == "0")
+    in_catchsql = false -- don't propagate to descent lists
     for i,item in ipairs(list) do
         if i > start then insert(result, ', ') end
-        if i >= start then insert_expr(result, item) end
+        if i == start + 1 and is_2nd_arg_list then
+              local _, sublist = tclparser.parselist(item)
+              insert(result, '{')
+           insert_list(result, sublist, 1)
+              insert(result, '}')
+          elseif i >= start then
+              insert_expr(result, item)
+          end
     end
 end
 
@@ -1058,10 +1082,8 @@ local function db(result, cmd)
     local subcmd, n = assert(cmd[2]), #cmd
     if subcmd == 'eval' then
         if n ~= 3 then return end
-        insert(result, cmd[1]..'(')
-        insert(result, '"eval", ')
+        insert_indent(result, "test:execsql ")
         insert_sql(result, cmd[3])
-        insert(result, ')')
         return true
     else
         return usercmd(result, cmd)
@@ -1092,7 +1114,7 @@ local function insert_result(result, ast, label)
 	    insert_expr(result, ast)
 	else
 	    local _, list = tclparser.parselist(ast)
-	    insert_list(result, list)
+	    insert_list(result, list, 1)
 	end	
 	--for i, elt in ipairs(list) do
 	    --local _, list_elt = tclparser.parselist(list[i])
@@ -1178,7 +1200,9 @@ function do_test_with_catch(result, cmd, nested)
     dedent(result)
 
     insert_indent(result, 'end, ')
+    in_catchsql = true
     insert_result(result, cmd[4], cmd[2])
+    in_catchsql = false
     dedent(result)
     insert(result, ')\n')
     return true
@@ -1212,7 +1236,11 @@ function cmdfunc.do_test(result, cmd)
                 insert(result, ',\n')
                 insert_sql(result, nested[2], 'force_multi')
                 insert(result, ', ')
+                if match(nested[1], 'catchsql') then
+                    in_catchsql = true
+                end
                 insert_result(result, cmd[4], cmd[2])
+                in_catchsql = false
                 insert(result, ')\n')
                 dedent(result)
                 return true
