@@ -177,6 +177,14 @@ local function insert_indent(result, v)
 end
 
 -----------------------------------------------------------------------
+-- match this pattern
+--[catch {...} msg] format
+local function match_catch_sql_format(cmd)
+    if #cmd ~= 3 or cmd[1] ~= "catch" then return end
+    return true
+end
+
+
 
 local xstats = {}
 local function xbump(k)
@@ -540,7 +548,7 @@ function cmdfunc.set(result, cmd)
     -- standard preamble sets $testdir
     if name == 'testdir' then
         return ignorecmd(result, cmd)
-    end 
+    end
     local var = checkvar(name)
     if #cmd <= 3 and var then
         local val = cmd[3] or nil_ref
@@ -838,7 +846,8 @@ function cmdfunc.string(result, cmd)
     end
 end
 
-function cmdfunc.catch(result, cmd)
+-- this function does not work properly
+--[=[function cmdfunc.catch(result, cmd)
     if cmd[2] == 'unset' then
         return ignorecmd(result, cmd)
     end
@@ -862,7 +871,7 @@ function cmdfunc.catch(result, cmd)
 end)()]])
         return true
     end
-end
+end ]=]--
 
 local function insert_list(result, list, start)
     start = start or 1
@@ -879,14 +888,19 @@ function cmdfunc.list(result, cmd)
     return true
 end
 
+function cmdfunc.lsort(result, cmd)
+    local var = checkvar(cmd[2][1])
+    if var == nil then return end
+    insert_indent(result, "table.sort("..var..") or "..var)
+    return true
+end
+
 function cmdfunc.lappend(result, cmd)
     local var = checkvar(cmd[2])
     if var and cmd[3] then
-        insert(result, 'table.append(')
-        insert(result, var)
-        insert(result, ', ')
+        insert_indent(result, 'table.insert('..var..',')
         insert_list(result, cmd, 3)
-        insert(result, ')')
+        insert(result, ') or '..var)
         return true
     end
 end
@@ -1129,6 +1143,45 @@ local function match_catch(cmd, prevcmd)
     return nested[1]
 end
 
+function do_test_with_catch(result, cmd, nested)
+    insert(result, 'test:do_test(\n')
+    indent(result)
+    insert_expr(result, cmd[2])
+    insert(result, ',\n')
+    insert_indent(result, 'function()\n')
+
+    indent(result)
+
+
+
+    local catch_cmd = nested[1][3][1]
+    insert_indent(result, "local "..catch_cmd[3].."\n") -- msg
+    insert_indent(result, "local "..nested[1][2]) -- v
+    insert( result," = pcall(function()\n")
+
+    indent(result)
+    insert_indent(result, catch_cmd[3].." = ")
+    tolua(result, tcl_parse(catch_cmd[2], node_line(catch_cmd)))
+    insert_indent(result, "end)\n")
+    dedent(result)
+    insert_indent(result, nested[1][2].." = "..nested[1][2].." == true and {0} or {1} \n")
+    table.remove(nested, 1)
+    for _, node in ipairs(nested) do
+        insert_indent(result)
+        tolua(result, node)
+        insert(result, '\n')
+    end
+
+    dedent(result)
+
+    insert_indent(result, 'end, ')
+    insert_result(result, cmd[4], cmd[2])
+    dedent(result)
+    insert(result, ')\n')
+    return true
+    --insert(result, "\nNested "..json.encode(nested))
+end
+
 function cmdfunc.do_test(result, cmd)
     if #cmd ~= 4 or type(cmd[3]) ~= 'string' then return false end
 
@@ -1159,6 +1212,15 @@ function cmdfunc.do_test(result, cmd)
                 insert_result(result, cmd[4], cmd[2])
                 insert(result, ')\n')
                 return true
+        end
+    end
+
+    -- process long constructions wiht catch sql as first arg
+    -- result array should be fixed with hands, because we can not parse arrays by now
+    if #nested >= 2 then
+        if nested[1][1] == "set" and type(nested[1][3]) == "table" and
+                match_catch_sql_format(nested[1][3][1]) then
+            if do_test_with_catch(result, cmd, nested) then return true end
         end
     end
     
