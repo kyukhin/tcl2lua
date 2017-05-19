@@ -24,16 +24,18 @@ index3.test.lua
 insert1.test.lua
 orderby3.test.lua
 orderby4.test.lua
-select3.test.lua
-select5.test.lua
+select1.test.lua # Converted
+select3.test.lua # Converted
+select5.test.lua # Converted
 tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
-update.test.lua
+update.test.lua #Converted
+where5.test.lua # Converted
 whereB.test.lua # Converted
 whereE.test.lua # Fully commented
 whereH.test.lua # Fully commented
 whereI.test.lua # Converted
-whereK.test.lua
-with1.test.lua
-with2.test.lua
+whereK.test.lua # Converted
+with1.test.lua #Converted
+with2.test.lua #Converted
