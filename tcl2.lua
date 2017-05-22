@@ -1035,9 +1035,10 @@ function cmdfunc.ifcapable(result, cmd)
     local i = cmd[3] == 'then' and 4 or 3
     while cmd[i] do
         if cur_branch == which_branch_insert then
-            indent(result)
+            -- ifcapable removed, extra indent
+            --indent(result)
             tolua(result, tcl_parse(cmd[i], node_line(cmd)))
-            dedent(result)
+            --dedent(result)
         end
         if cmd[i+1] == 'else' then
             cur_branch = false
