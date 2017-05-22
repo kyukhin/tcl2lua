@@ -15,8 +15,20 @@ analyzeD.test.lua
 analyzeE.test.lua
 analyzeF.test.lua
 analyzer1.test.lua
+attach2.test.lua       # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach3.test.lua       # Ditto.
+attach4.test.lua       # Ditto.
+attachmalloc.test.lua  # Ditto.
 autoindex4.test.lua
 autoindex5.test.lua
+backup1.test.lua       # Fully commented. Functionality isn't related to trntl.
+backup2.test.lua       # Ditto.
+backup4.test.lua       # Ditto.
+backup5.test.lua       # Ditto.
+backup_ioerr.test.lua  # Ditto.
+backup_malloc.test.lua # Ditto.
+bigfile1.test.lua      # Cully commented. trntl's SQL doesn't deal with files at all.
+bigfile2.test.lua      # Ditto.
 delete1.test.lua
 delete3.test.lua
 distinctagg.test.lua
