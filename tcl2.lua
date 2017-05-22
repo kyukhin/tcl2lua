@@ -178,11 +178,14 @@ local function dedent(result)
     local indent = result.indent
     if indent then result.indent = sub(indent, 5) end
 end
-
 local function insert_indent(result, v)
     local base = #result
-    result[base+1] = result.indent or ''
-    result[base+2] = v
+    -- it is not necessary to add indent
+    -- if we trying to add smth to current line (no \n)
+    if base ~=0 and string.find(result[base], "\n") then
+        insert(result, result.indent or '')
+    end
+    insert(result, v)
 end
 
 -----------------------------------------------------------------------
@@ -387,7 +390,7 @@ end
 
 local function insert_sql(result, sql, force_multiline)
     if type(sql) == 'string' then
-        insert(result, safestr(reindent_sql(result, sql, force_multiline)))
+        insert_indent(result, safestr(reindent_sql(result, sql, force_multiline)))
     elseif node_type(sql) == 'subst' then
         local template, params = translate_subst(sql)
         if #params == 1 and not find(template, '\n') then
@@ -942,7 +945,7 @@ local function usercmd(result, cmd)
     if cmd[1] == 'finish_test' then
 	cmd[1] = 'test:finish_test'
     end
-    insert(result, cmd[1])
+    insert_indent(result, cmd[1])
     insert(result, '(')
     insert_list(result, cmd, 2)
     insert(result, ')')
@@ -954,7 +957,7 @@ function cmdfunc.proc(result, cmd)
         local line, name, params = node_line(cmd), cmd[2], cmd[3]
         
         local pos = #result
-        result[pos+1] = 'function '
+        result[pos+1] = 'local function '
         result[pos+2] = '<name placeholder>'
         result[pos+3] = '('
         result[pos+4] = '' -- params placeholder
@@ -1239,6 +1242,7 @@ function cmdfunc.do_test(result, cmd)
                 insert_result(result, cmd[4], cmd[2])
                 in_catchsql = false
                 insert(result, ')\n')
+                dedent(result)
                 return true
         end
     end
@@ -1260,14 +1264,17 @@ function cmdfunc.do_test(result, cmd)
 
     indent(result)
     tolua(result, nested)
-
     dedent(result)
 
     insert_indent(result, 'end, ')
+
     insert_result(result, cmd[4], cmd[2])
+    dedent(result)
     insert(result, ')\n')
     return true
 end
+
+
 
 function cmdfunc.do_execsql_test(result, cmd)
     if #cmd >= 3 then
@@ -1281,6 +1288,7 @@ function cmdfunc.do_execsql_test(result, cmd)
             insert_result(result, cmd[4], cmd[2])
         end
         insert(result, ')\n')
+        dedent(result)
         return true
     end
 end
@@ -1295,6 +1303,7 @@ function cmdfunc.do_catchsql_test(result, cmd)
         insert(result, ', ')
         insert_result(result, cmd[4], cmd[2])
         insert(result, ')\n')
+        dedent(result)
         return true
     end
 end
