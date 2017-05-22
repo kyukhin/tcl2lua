@@ -18,6 +18,9 @@ DDIR=$3
 
 [ -d $DDIR ] || mkdir -p $DDIR
 
+# Remove comments
+EXCLUDE_LIST=$(cat $EXCLUDE_LIST_FN |perl -pe "s/#.*$//; /^$/d")
+
 for i in `find $SDIR -name "*.test.lua" $(printf "! -name %s " $(cat $EXCLUDE_LIST_FN))` ; do
 # for i in `find $SDIR -name "*.test.lua"` ; do
     (
