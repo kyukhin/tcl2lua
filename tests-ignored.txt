@@ -27,13 +27,19 @@ backup4.test.lua       # Ditto.
 backup5.test.lua       # Ditto.
 backup_ioerr.test.lua  # Ditto.
 backup_malloc.test.lua # Ditto.
-bigfile1.test.lua      # Cully commented. trntl's SQL doesn't deal with files at all.
+bigfile1.test.lua      # Fully commented. trntl's SQL doesn't deal with files at all.
 bigfile2.test.lua      # Ditto.
 delete1.test.lua
 delete3.test.lua
 distinctagg.test.lua
 index3.test.lua
 insert1.test.lua
+join.test.lua  # Converted
+join2.test.lua # Ditto
+join3.test.lua # Ditto
+join5.test.lua # Ditto
+join6.test.lua # Ditto
+orderby1.test.lua # Converted
 orderby3.test.lua
 orderby4.test.lua
 select1.test.lua # Converted
@@ -45,6 +51,7 @@ tkt-752e1646fc.test.lua
 update.test.lua #Converted
 where5.test.lua # Converted
 whereB.test.lua # Converted
+whereC.test.lua # Converted
 whereE.test.lua # Fully commented
 whereH.test.lua # Fully commented
 whereI.test.lua # Converted
