@@ -313,7 +313,7 @@ insert_expr = function(result, _1, _2)
     elseif nt == 'var' then
         local var = checkvar(ast[1])
         if var then
-            insert(result, var)
+            insert_indent(result, var)
         else
             insert_x(result, 'X!name', ast)
         end
@@ -323,13 +323,13 @@ insert_expr = function(result, _1, _2)
             for i, node in ipairs(ast) do
                 if i ~= 1 then insert(result, '..') end
                 if type(node) == 'string' then
-                    insert(result, safestr(node))
+                    insert_indent(result, safestr(node))
                 else
                     insert_expr(result, node)
                 end
             end
         else
-            insert(result, 'string.format(')
+            insert_indent(result, 'string.format(')
             insert(result, safestr(template))
             for _, expr in ipairs(params) do
                 insert(result, ', '); insert_expr(result, expr)
@@ -1309,6 +1309,20 @@ function cmdfunc.do_catchsql_test(result, cmd)
     end
 end
 
+function cmdfunc.do_eqp_test(result, cmd)
+if #cmd == 4 then
+    insert(result, 'test:do_eqp_test(\n')
+    indent(result)
+    insert_expr(result, cmd[2])
+    insert(result, ',\n')
+    insert_sql(result, cmd[3])
+    insert(result, ', ')
+    insert_result(result, cmd[4], cmd[2])
+    insert(result, ')\n')
+    dedent(result)
+    return true
+end
+end
 -----------------------------------------------------------------------
 
 local result = {}
