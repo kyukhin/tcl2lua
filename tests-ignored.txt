@@ -50,7 +50,14 @@ select5.test.lua # Converted
 select6.test.lua # Converted
 select7.test.lua # Converted
 select8.test.lua # Converted
-select9.test.lua # Converted
+select9.test.lua # Converted (waiting how silent mode)
+selectA.test.lua # Converted
+selectB.test.lua # Converted
+selectC.test.lua # Converted
+selectD.test.lua # Empty (all lines commented)
+selectE.test.lua # Converted
+selectF.test.lua # Converted
+selectG.test.lua # Converted (waiting for int 64 implementation)
 tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
