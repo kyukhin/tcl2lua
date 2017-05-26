@@ -40,8 +40,13 @@ join3.test.lua # Ditto
 join5.test.lua # Ditto
 join6.test.lua # Ditto
 orderby1.test.lua # Converted
-orderby3.test.lua
-orderby4.test.lua
+orderby2.test.lua # Ditto
+orderby3.test.lua # Ditto
+orderby4.test.lua # Ditto
+orderby5.test.lua # Ditto
+orderby6.test.lua # Ditto
+orderby7.test.lua # Not relevant. Test for FTS which is not picked into Tarantool.
+orderby8.test.lua # Converted
 select1.test.lua # Converted
 select2.test.lua # Converted
 select3.test.lua # Converted
@@ -61,10 +66,18 @@ selectG.test.lua # Converted (waiting for int 64 implementation)
 tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
-update.test.lua #Converted
-where5.test.lua # Converted
-whereB.test.lua # Converted
-whereC.test.lua # Converted
+update.test.lua # Converted
+where2.test.lua # Ditto
+where3.test.lua # Ditto
+where4.test.lua # Ditto
+where5.test.lua # Ditto
+where6.test.lua # Ditto
+where8.test.lua # Need #2455
+where9.test.lua # Ditto
+whereA.test.lua # Converted
+whereB.test.lua # Ditto
+whereC.test.lua # Ditto
+whereD.test.lua # Ditto
 whereE.test.lua # Fully commented
 whereH.test.lua # Fully commented
 whereI.test.lua # Converted
