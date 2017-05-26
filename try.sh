@@ -10,10 +10,16 @@ if ! [ -d $OUTPUT_DIR ]; then
   cp -r $SQL_TAP_DIR/lua $OUTPUT_DIR/
   cp -r $SQL_TAP_DIR/suite.ini $OUTPUT_DIR/
 fi
-if [[ $# -eq 2 ]]; then
-  python uncoment_must_work.py $2 > $TMP_FILE
-  $TARANTOOL_BIN tcl2.lua $TMP_FILE > $OUTPUT_DIR/$(basename $2)   
-  chmod +x $OUTPUT_DIR/$(basename $2)   
-fi
+
+shift
+
+while (( "$#" )); do
+  python uncoment_must_work.py $1 > $TMP_FILE
+  $TARANTOOL_BIN tcl2.lua $TMP_FILE > $OUTPUT_DIR/$(basename $1)   
+  ./conv-update-test-plan.sh $OUTPUT_DIR/$(basename $1)
+  chmod +x $OUTPUT_DIR/$(basename $1)   
+  shift
+done
+echo "Lol"
 cd $TARANTOOL_TEST && ./test-run.py $(basename $OUTPUT_DIR) --force
 

@@ -63,9 +63,24 @@ selectD.test.lua # Empty (all lines commented)
 selectE.test.lua # Converted
 selectF.test.lua # Converted
 selectG.test.lua # Converted (waiting for int 64 implementation)
+tkt2213.test.lua # Ignored (test checks related to tcl features)
+tkt2643.test.lua # Waiting Testing analyze feature and statistics. Should it be in tarantool?
+tkt2251.test.lua # Converted(stored locally), but not workung. Depends on #2349
+tkt3718.test.lua # Waiting for built-in procedures
+tkt3824.test.lua # Waiting (test uses db status)
+tkt3832.test.lua # Waiting for triggers implenentation
+tkt3838.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table) and UTF 16 #2295
+tkt3892.test.lua # Waiting for int 64
+tkt3992.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table, triggers)
+tkt3997.test.lua # Waiting for built-in procedures and collations
+tkt-26ff0c2d1e.test.lua # Skip (do not know how to call prepared statement)
+tkt-2a5629202f.test.lua # Waiting cksort (test uses db status) 
+tkt-2ea2425d34.test.lua # Waiting UTF 16 #2295
+tkt-3fe897352e.test.lua # Waiting UTF 16 #2295
 tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
+tkt-7bbfb7d442.test.lua # Converted, half of the test waits for triggers
 update.test.lua # Converted
 where2.test.lua # Ditto
 where3.test.lua # Ditto
