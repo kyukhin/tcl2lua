@@ -6,13 +6,14 @@ echo
 echo "    List stored here: tests-ignored.txt"
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <path to tarantool binary> <path to source dir> <path to dest dir>"
+    echo "Usage: $0 <path to tarantool root> <path to source dir> <path to dest dir>"
     exit 0
 fi
 
 CONVERTER="tcl2.lua"
 EXCLUDE_LIST_FN="$PWD/tests-ignored.txt"
-TBIN=$1
+TBIN=$1/src/tarantool
+CONVERTED_TESTS_DIR=$1/test/sql-tap/
 SDIR=$2
 DDIR=$3
 
@@ -20,8 +21,9 @@ DDIR=$3
 
 # Remove comments
 EXCLUDE_LIST=$(cat $EXCLUDE_LIST_FN |perl -pe "s/#.*$//; /^$/d")
-
-for i in `find $SDIR -name "*.test.lua" $(printf "! -name %s " $(cat $EXCLUDE_LIST_FN))` ; do
+EXCLUDE_LIST="$EXCLUDE_LIST\n$(for i in $(find $CONVERTED_TESTS_DIR -name '*.lua'); do basename $i; done;)"
+echo $EXCLUDE_LIST
+for i in `find $SDIR -name "*.test.lua" $(printf "! -name %s " $(echo $EXCLUDE_LIST))` ; do
 # for i in `find $SDIR -name "*.test.lua"` ; do
     (
 	n=$(basename $i)

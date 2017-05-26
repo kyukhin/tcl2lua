@@ -34,34 +34,18 @@ delete3.test.lua
 distinctagg.test.lua
 index3.test.lua
 insert1.test.lua
-join.test.lua  # Converted
 join2.test.lua # Ditto
 join3.test.lua # Ditto
 join5.test.lua # Ditto
 join6.test.lua # Ditto
-orderby1.test.lua # Converted
 orderby2.test.lua # Ditto
 orderby3.test.lua # Ditto
 orderby4.test.lua # Ditto
 orderby5.test.lua # Ditto
 orderby6.test.lua # Ditto
 orderby7.test.lua # Not relevant. Test for FTS which is not picked into Tarantool.
-orderby8.test.lua # Converted
-select1.test.lua # Converted
-select2.test.lua # Converted
-select3.test.lua # Converted
-select4.test.lua # Converted
-select5.test.lua # Converted
-select6.test.lua # Converted
-select7.test.lua # Converted
-select8.test.lua # Converted
 select9.test.lua # Converted (waiting how silent mode)
-selectA.test.lua # Converted
-selectB.test.lua # Converted
-selectC.test.lua # Converted
 selectD.test.lua # Empty (all lines commented)
-selectE.test.lua # Converted
-selectF.test.lua # Converted
 selectG.test.lua # Converted (waiting for int 64 implementation)
 tkt2213.test.lua # Ignored (test checks related to tcl features)
 tkt2643.test.lua # Waiting Testing analyze feature and statistics. Should it be in tarantool?
@@ -81,7 +65,6 @@ tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
 tkt-7bbfb7d442.test.lua # Converted, half of the test waits for triggers
-update.test.lua # Converted
 where2.test.lua # Ditto
 where3.test.lua # Ditto
 where4.test.lua # Ditto
@@ -89,13 +72,8 @@ where5.test.lua # Ditto
 where6.test.lua # Ditto
 where8.test.lua # Need #2455
 where9.test.lua # Ditto
-whereA.test.lua # Converted
 whereB.test.lua # Ditto
 whereC.test.lua # Ditto
 whereD.test.lua # Ditto
 whereE.test.lua # Fully commented
 whereH.test.lua # Fully commented
-whereI.test.lua # Converted
-whereK.test.lua # Converted
-with1.test.lua #Converted
-with2.test.lua #Converted
