@@ -1,5 +1,9 @@
 8_3_names.test.lua # Fully commented
+aggerror.test.lua # waiting (uses sqlite3_create_aggregate)
 aggnested.test.lua
+alias.test.lua # waiting (built in functions)
+altermalloc.test.lua # fully commented
+amatch1.test.lua # fully commented (full text search)
 analyze1.test.lua
 analyze3.test.lua
 analyze4.test.lua
@@ -15,20 +19,38 @@ analyzeD.test.lua
 analyzeE.test.lua
 analyzeF.test.lua
 analyzer1.test.lua
-attach2.test.lua       # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-attach3.test.lua       # Ditto.
-attach4.test.lua       # Ditto.
-attachmalloc.test.lua  # Ditto.
+async1.test.lua         # Probably not necessqry?
+async4.test.lua         # Probably not necessqry?
+attach1.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach2.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach3.test.lua        # Ditto.
+attach4.test.lua        # Ditto.
+attachmalloc.test.lua   # Ditto.
+autoinc.test.lua # Waiting autoincrement #2263
+autoindex1.test.lua     # Waiting. Uses db status
+autoindex2.test.lua     # Waiting. Uses sqlite_master #2244
+autoindex3.test.lua     # Waiting. Uses sqlite_stat1 should it be it tarantool?
 autoindex4.test.lua
 autoindex5.test.lua
-backup1.test.lua       # Fully commented. Functionality isn't related to trntl.
-backup2.test.lua       # Ditto.
-backup4.test.lua       # Ditto.
-backup5.test.lua       # Ditto.
-backup_ioerr.test.lua  # Ditto.
-backup_malloc.test.lua # Ditto.
-bigfile1.test.lua      # Fully commented. trntl's SQL doesn't deal with files at all.
-bigfile2.test.lua      # Ditto.
+autovacuum.test.lua     # Functionality isn't related to trntl.
+autovacuum_ioerr2.test.lua # Functionality isn't related to trntl.
+autrans.test.lua        # Functionality isn't related to trntl.
+auth1.test.lua          # Fully commented. isn't related to tarantool?
+backcompat.test.lua     # fully commented, unnecessqry?
+backup1.test.lua        # Fully commented. Functionality isn't related to trntl.
+backup2.test.lua        # Ditto.
+backup4.test.lua        # Ditto.
+backup5.test.lua        # Ditto.
+backup_ioerr.test.lua   # Ditto.
+backup_malloc.test.lua  # Ditto.
+between.test.lua        # Waiting #2455 ( uses sqlite sort count)
+bigfile1.test.lua       # Fully commented. trntl's SQL doesn't deal with files at all.
+bigfile2.test.lua       # Ditto.
+bind.test.lua # Waiting. Uses prepared statements
+bindxfer.test.lua       # Waiting. Uses prepared statements
+btree01.test.lua        # Functionality isn't related to trntl. 
+btree02.test.lua        # Functionality isn't related to trntl. 
+busy.test.lua           # Waiting for transactions. Should be rewritten.
 delete1.test.lua
 delete3.test.lua
 distinctagg.test.lua

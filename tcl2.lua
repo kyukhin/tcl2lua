@@ -943,7 +943,8 @@ end
 
 local function usercmd(result, cmd)
     if cmd[1] == 'finish_test' then
-	cmd[1] = 'test:finish_test'
+	    --cmd[1] = 'test:finish_test'
+      return true
     end
     insert_indent(result, cmd[1])
     insert(result, '(')
@@ -1331,7 +1332,7 @@ print("#!/usr/bin/env tarantool")
 print("test = require(\"sqltester\")")
 print("test:plan(0)\n")
 print(concat(result, ''))
-
+print('test:finish_test()')
 local ks = {}
 for k, _ in pairs(xstats) do
     insert(ks, k)
