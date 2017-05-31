@@ -65,6 +65,10 @@ tkt-4c86b126f2.test.lua
 tkt-54844eea3f.test.lua
 tkt-752e1646fc.test.lua
 tkt-7bbfb7d442.test.lua # Converted, half of the test waits for triggers
+tkt-8454a207b9.test.lua # Waiting for #2363 int64, #2349 alter table 
+tkt-b72787b1.test.lua # Waiting for prepared statement implementation
+tkt-f67b41381a.test.lua # Not converted (Waiting alter + Don't know how to convert)
+tkt-f777251dc7a.test.lua # Waiting for build in functions
 where2.test.lua # Ditto
 where3.test.lua # Ditto
 where4.test.lua # Ditto
