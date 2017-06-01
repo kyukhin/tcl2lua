@@ -3,6 +3,10 @@ aggerror.test.lua # waiting (uses sqlite3_create_aggregate)
 aggnested.test.lua
 alias.test.lua # waiting (built in functions)
 altermalloc.test.lua # fully commented
+alter1.test.lua # waiting for alter table #2349
+alter2.test.lua # waiting for alter table #2349
+alter3.test.lua # waiting for alter table #2349
+alter4.test.lua # waiting for alter table #2349
 amatch1.test.lua # fully commented (full text search)
 analyze1.test.lua
 analyze3.test.lua
@@ -20,13 +24,16 @@ analyzeE.test.lua
 analyzeF.test.lua
 analyzer1.test.lua
 async1.test.lua         # Probably not necessqry?
+async2.test.lua         # Probably not necessqry?
+async3.test.lua         # Probably not necessqry?
 async4.test.lua         # Probably not necessqry?
+async5.test.lua         # Probably not necessqry?
 attach1.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
 attach2.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
 attach3.test.lua        # Ditto.
 attach4.test.lua        # Ditto.
 attachmalloc.test.lua   # Ditto.
-autoinc.test.lua # Waiting autoincrement #2263
+autoinc.test.lua        # Waiting autoincrement #2263
 autoindex1.test.lua     # Waiting. Uses db status
 autoindex2.test.lua     # Waiting. Uses sqlite_master #2244
 autoindex3.test.lua     # Waiting. Uses sqlite_stat1 should it be it tarantool?
@@ -34,8 +41,10 @@ autoindex4.test.lua
 autoindex5.test.lua
 autovacuum.test.lua     # Functionality isn't related to trntl.
 autovacuum_ioerr2.test.lua # Functionality isn't related to trntl.
-autrans.test.lua        # Functionality isn't related to trntl.
+avtrans.test.lua        # Functionality isn't related to trntl.
 auth1.test.lua          # Fully commented. isn't related to tarantool?
+auth2.test.lua          # Fully commented. isn't related to tarantool?
+auth3.test.lua          # Fully commented. isn't related to tarantool?
 backcompat.test.lua     # fully commented, unnecessqry?
 backup1.test.lua        # Fully commented. Functionality isn't related to trntl.
 backup2.test.lua        # Ditto.
@@ -48,9 +57,33 @@ bigfile1.test.lua       # Fully commented. trntl's SQL doesn't deal with files a
 bigfile2.test.lua       # Ditto.
 bind.test.lua # Waiting. Uses prepared statements
 bindxfer.test.lua       # Waiting. Uses prepared statements
+boundary1.test.lua      # Waiting for int 64 #2363 
+boundary2.test.lua      # Waiting for int 64 #2363 
+boundary3.test.lua      # Waiting for int 64 #2363 
 btree01.test.lua        # Functionality isn't related to trntl. 
 btree02.test.lua        # Functionality isn't related to trntl. 
+btreefault.test.lua     # not related to tarantool
 busy.test.lua           # Waiting for transactions. Should be rewritten.
+cache.test.lua          # not related to tarantool?
+capi1.test.lua          # Fully commented.
+capi2.test.lua          # Fully commented.
+capi3.test.lua          # Fully commented.
+close.test.lua          # Not related to tarantool?
+closure01.test.lua      # Not related to tarantool
+collate1.test.lua       # Waiting for built-in pocedures
+collate2.test.lua       # Waiting for built-in pocedures
+collate3.test.lua       # Waiting for built-in pocedures
+collate4.test.lua       # Waiting for built-in pocedures
+collate5.test.lua       # Waiting for built-in pocedures
+collate6.test.lua       # Fully commented
+collate7.test.lua       # Fully commented
+collate8.test.lua       # Fully commented
+collate9.test.lua       # Fully commented
+collateA.test.lua       # Fully commented
+colmeta.test.lua        # Fully commented
+conflict.test.lua       # Waiting for #2495
+conflict2.test.lua      # Fully commented
+conflict3.test.lua      # Fully commented
 delete1.test.lua
 delete3.test.lua
 distinctagg.test.lua
@@ -60,6 +93,8 @@ join2.test.lua # Ditto
 join3.test.lua # Ditto
 join5.test.lua # Ditto
 join6.test.lua # Ditto
+like3.test.lua # Waiting for #1476 collate nocase
+minmax.test.lua   # Waiting #2455, uses sqlite_search_count a lot
 orderby2.test.lua # Ditto
 orderby3.test.lua # Ditto
 orderby4.test.lua # Ditto
