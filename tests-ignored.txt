@@ -84,9 +84,18 @@ colmeta.test.lua        # Fully commented
 conflict.test.lua       # Waiting for #2495
 conflict2.test.lua      # Fully commented
 conflict3.test.lua      # Fully commented
+coveridxscan.test.lua   # Sohuld be rewritten. Relies on sqlite internall staff (like rowid)
+createtab.test.lua      # not related to tarantool? uses autavacuum a lot
 delete1.test.lua
 delete3.test.lua
+default.test.lua        # fully commented + contains int 64
+delete.test.lua         # fully commented
+delete2.test.lua        # fully commented
+descidx1.test.lua       # fully commented
+descidx2.test.lua       # fully commented
+descidx3.test.lua       # fully commented
 distinctagg.test.lua
+e_changes.test.lua      # fully commented
 index3.test.lua
 insert1.test.lua
 join2.test.lua # Ditto
