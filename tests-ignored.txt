@@ -96,6 +96,9 @@ descidx2.test.lua       # fully commented
 descidx3.test.lua       # fully commented
 distinctagg.test.lua
 e_changes.test.lua      # fully commented
+fuzz1.test.lua          # Ditto
+fuzz2.test.lua          # Ditto
+fuzz3.test.lua          # Ditto
 index3.test.lua
 insert1.test.lua
 icu.test.lua # Fully commented
