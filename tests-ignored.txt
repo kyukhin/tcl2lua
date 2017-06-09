@@ -98,6 +98,7 @@ distinctagg.test.lua
 e_changes.test.lua      # fully commented
 index3.test.lua
 insert1.test.lua
+icu.test.lua # Fully commented
 join2.test.lua # Ditto
 join3.test.lua # Ditto
 join5.test.lua # Ditto
