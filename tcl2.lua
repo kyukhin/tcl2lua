@@ -1324,6 +1324,20 @@ if #cmd == 4 then
     return true
 end
 end
+
+function cmdfunc.do_select_tests(result, cmd)
+if #cmd == 3 then
+    insert(result, 'test:do_select_tests(\n')
+    indent(result)
+    insert_expr(result, cmd[2])
+    insert(result, ',\n')
+    insert_sql(result, cmd[3])
+    insert(result, ')\n')
+    dedent(result)
+    return true
+end
+end
+
 -----------------------------------------------------------------------
 
 local result = {}
