@@ -5,15 +5,19 @@ echo "    which were already converted, reviewed and pushed to Tarantool."
 echo
 echo "    List stored here: tests-ignored.txt"
 
-if [ $# -ne 3 ]; then
-    echo "Usage: $0 <path to tarantool root> <path to source dir> <path to dest dir>"
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 <path to tarantool root> <path to source dir> <path to dest dir> [<path to sql-tap suite>]"
     exit 0
 fi
 
 CONVERTER="tcl2.lua"
 EXCLUDE_LIST_FN="$PWD/tests-ignored.txt"
 TBIN=$1/src/tarantool
-CONVERTED_TESTS_DIR=$1/test/sql-tap/
+if [ \( -d $1/test/sql-tap \) -o \( -z $4 \) ] ; then
+    CONVERTED_TESTS_DIR=$1/test/sql-tap/
+else
+    CONVERTED_TESTS_DIR=$4
+fi
 SDIR=$2
 DDIR=$3
 

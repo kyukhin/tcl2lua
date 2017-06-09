@@ -135,6 +135,8 @@ tkt-8454a207b9.test.lua # Waiting for #2363 int64, #2349 alter table
 tkt-b72787b1.test.lua # Waiting for prepared statement implementation
 tkt-f67b41381a.test.lua # Not converted (Waiting alter + Don't know how to convert)
 tkt-f777251dc7a.test.lua # Waiting for build in functions
+trigger2.test.lua # Fully commented
+trigger6.test.lua # Need #2233 to be implemented
 where2.test.lua # Ditto
 where3.test.lua # Ditto
 where4.test.lua # Ditto
