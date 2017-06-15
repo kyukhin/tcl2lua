@@ -96,29 +96,80 @@ descidx2.test.lua       # fully commented
 descidx3.test.lua       # fully commented
 distinctagg.test.lua
 e_changes.test.lua      # fully commented
-e_fkey.test.lua         # fully commented
 e_insert.test.lua       # fully commented
+e_fkey.test.lua         # fully commented
+e_totalchanges.test.lua # Waiting. access to total_changes #2455
+e_update.test.lua       # Fully commented
+enc2.test.lua           # fully commented
+enc3.test.lua           # not related to tarantool? uses utf16 
+enc4.test.lua           # Waiting for prep statements + usus utf16 
+eval.test.lua           # Waiting. Uses special built-in function test_eval
+exec.test.lua           # not related to tarantool
+func4.test.lua          # not related to tarantool? uses load_static_extension totype
+func5.test.lua          # not related to tarantool? usus utf16
 fuzz1.test.lua          # Ditto
 fuzz2.test.lua          # Ditto
 fuzz3.test.lua          # Ditto
+fuzz-oss1.test.lua      # Waiting for autoincrement #2263
 index3.test.lua
-insert1.test.lua
+insert2.test.lua  # Waiting for access to count_changes #2455 
+insert3.test.lua  # Waiting for pk autoincrement, or should be rewritten
+insert4.test.lua  # Fully commented
+insert5.test.lua  # Waiting for pk autoincrement
 icu.test.lua # Fully commented
 join2.test.lua # Ditto
 join3.test.lua # Ditto
 join5.test.lua # Ditto
 join6.test.lua # Ditto
+like.test.lua  # Waiting for #2455, uses sqlite_like_count a lot
 like3.test.lua # Waiting for #1476 collate nocase
 minmax.test.lua   # Waiting #2455, uses sqlite_search_count a lot
+nan.test.lua      # Waiting. uses prepared statements a lot
+numcast.test.lua  # not related to tarantool? usus utf16
 orderby2.test.lua # Ditto
 orderby3.test.lua # Ditto
 orderby4.test.lua # Ditto
 orderby5.test.lua # Ditto
 orderby6.test.lua # Ditto
 orderby7.test.lua # Not relevant. Test for FTS which is not picked into Tarantool.
+ptrchng.test.lua  # Waiting. uses pointer_change func (remuved with test1.c)
+quota-glob.test.lua # Not related to tarantool?? sqlite3_quota_glob was removed
+regexp.test.lua     # Waiting? regexp extension not implemented
+rollback.test.lua   # Fully commented, transactions are not implemented #2140
+rollback2.test.lua  # Fully commented, transactions are not implemented #2140
+rollbackfault.test.lua  # Fully commented, transactions are not implemented #2140
+savepoint.test.lua  # Fully commented, transactions are not implemented #2140
+savepoint1.test.lua # Fully commented, transactions are not implemented #2140
+savepoint2.test.lua # Fully commented, transactions are not implemented #2140
+savepoint3.test.lua # Fully commented, transactions are not implemented #2140
+savepoint4.test.lua # Fully commented, transactions are not implemented #2140
+savepoint5.test.lua # Fully commented, transactions are not implemented #2140
+savepoint6.test.lua # Fully commented, transactions are not implemented #2140
+savepoint7.test.lua # Fully commented, transactions are not implemented #2140
+scanstatus.test.lua # Fully commented
 select9.test.lua # Converted (waiting how silent mode)
 selectD.test.lua # Empty (all lines commented)
 selectG.test.lua # Converted (waiting for int 64 implementation)
+# sidedelete Not working. Don't know what to do.
+# Null not allowed in pk(2.), and UPDATE OR REPLACE works differently in tarantool(3.)
+sidedelete.test.lua # see above
+skipscan1.test.lua  # Fully commented
+skipscan2.test.lua  # Fully commented
+skipscan3.test.lua  # Fully commented
+sort2.test.lua    # Fully commented, multi-threaded sorting works
+sort3.test.lua    # Fully commented, sort huge arrays while mmap limit is 5mb
+sort4.test.lua    # Fully commented, multi-threaded sorting works, prep stat
+sort5.test.lua    # Fully commented, not related to tarantool
+sortfault.test.lua    # Fully commented
+speed1.test.lua   # Fully commented
+speed2.test.lua   # Fully commented
+speed3.test.lua   # Fully commented
+speed4.test.lua   # Fully commented
+speed4p.test.lua  # Fully commented
+speed4pexplain.test.lua # Fully commented
+subtupe1.test.lua # Waiting? Uses internal test_getsubtype (.c) func
+temptable.test.lua    # Fully commented, waiting for implementation
+temptrigger.test.lua  # Fully commented
 tkt2213.test.lua # Ignored (test checks related to tcl features)
 tkt2643.test.lua # Waiting Testing analyze feature and statistics. Should it be in tarantool?
 tkt2251.test.lua # Converted(stored locally), but not workung. Depends on #2349
@@ -127,6 +178,7 @@ tkt3824.test.lua # Waiting (test uses db status)
 tkt3832.test.lua # Waiting for triggers implenentation
 tkt3838.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table) and UTF 16 #2295
 tkt3892.test.lua # Waiting for int 64
+tkt3922.test.lua # Waiting for int 64
 tkt3992.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table, triggers)
 tkt3997.test.lua # Waiting for built-in procedures and collations
 tkt-26ff0c2d1e.test.lua # Skip (do not know how to call prepared statement)
@@ -143,6 +195,8 @@ tkt-f67b41381a.test.lua # Not converted (Waiting alter + Don't know how to conve
 tkt-f777251dc7a.test.lua # Waiting for build in functions
 trigger2.test.lua # Fully commented
 trigger6.test.lua # Need #2233 to be implemented
+varint.test.lua   # not ralated to tarantool (testing btree, see test3.c, btree_varint_test)
+where.test.lua    # waiting for #2455 (search_count)
 where2.test.lua # Ditto
 where3.test.lua # Ditto
 where4.test.lua # Ditto
@@ -155,3 +209,5 @@ whereC.test.lua # Ditto
 whereD.test.lua # Ditto
 whereE.test.lua # Fully commented
 whereH.test.lua # Fully commented
+whereJ.test.lua # Fully commented
+wherelimit.test.lua # This sqlite option is turned off in tarantool 

@@ -927,7 +927,11 @@ function cmdfunc.lappend(result, cmd)
     if var and cmd[3] then
         insert_indent(result, 'table.insert('..var..',')
         insert_list(result, cmd, 3)
-        insert(result, ') or '..var)
+        insert(result, ')')
+        
+        if node_type(cmd) == 'rcmd' then
+            insert(result, ' or '..var)
+        end
         return true
     end
 end
@@ -1064,14 +1068,14 @@ local function execsql(result, cmd)
         result[pos+1] = 'test:'..cmd[1]
         result[pos+2] = '('
         insert_sql(result, sql)
-        if n == 2 and #result == pos + 3 then
-            result[pos+2] = ' ' -- assume paren was unnecessary
-        else
+        --if n == 2 and #result == pos + 3 then
+        --    result[pos+2] = ' ' -- assume paren was unnecessary
+        --else
             if n == 3 then
                 insert(result, ", "); insert_expr(result, cmd[3])
             end
-            insert(result, ')')
-        end
+        --end
+        insert(result, ')')
         return true
     end
 end
@@ -1084,8 +1088,9 @@ local function db(result, cmd)
     local subcmd, n = assert(cmd[2]), #cmd
     if subcmd == 'eval' then
         if n ~= 3 then return end
-        insert_indent(result, "test:execsql ")
+        insert_indent(result, "test:execsql(")
         insert_sql(result, cmd[3])
+        insert(result,")")
         return true
     else
         return usercmd(result, cmd)
