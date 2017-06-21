@@ -96,6 +96,8 @@ descidx2.test.lua       # fully commented
 descidx3.test.lua       # fully commented
 distinctagg.test.lua
 e_changes.test.lua      # fully commented
+e_droptrigger.test.lua  # fully commented
+e_dropview.test.lua     # fully commented
 e_insert.test.lua       # fully commented
 e_fkey.test.lua         # fully commented
 e_totalchanges.test.lua # Waiting. access to total_changes #2455
@@ -105,6 +107,8 @@ enc3.test.lua           # not related to tarantool? uses utf16
 enc4.test.lua           # Waiting for prep statements + usus utf16 
 eval.test.lua           # Waiting. Uses special built-in function test_eval
 exec.test.lua           # not related to tarantool
+exists.test.lua         # fully commented. uses sqlite_master a lot
+expr.test.lua           # fully commented, waiting for transactions
 func4.test.lua          # not related to tarantool? uses load_static_extension totype
 func5.test.lua          # not related to tarantool? usus utf16
 fuzz1.test.lua          # Ditto
@@ -125,6 +129,7 @@ like.test.lua  # Waiting for #2455, uses sqlite_like_count a lot
 like3.test.lua # Waiting for #1476 collate nocase
 minmax.test.lua   # Waiting #2455, uses sqlite_search_count a lot
 nan.test.lua      # Waiting. uses prepared statements a lot
+notnull.test.lua  # fully commented
 numcast.test.lua  # not related to tarantool? usus utf16
 orderby2.test.lua # Ditto
 orderby3.test.lua # Ditto
@@ -132,6 +137,7 @@ orderby4.test.lua # Ditto
 orderby5.test.lua # Ditto
 orderby6.test.lua # Ditto
 orderby7.test.lua # Not relevant. Test for FTS which is not picked into Tarantool.
+orderby9.test.lua # Waiting int 64
 ptrchng.test.lua  # Waiting. uses pointer_change func (remuved with test1.c)
 quota-glob.test.lua # Not related to tarantool?? sqlite3_quota_glob was removed
 regexp.test.lua     # Waiting? regexp extension not implemented
@@ -149,7 +155,6 @@ savepoint7.test.lua # Fully commented, transactions are not implemented #2140
 scanstatus.test.lua # Fully commented
 select9.test.lua # Converted (waiting how silent mode)
 selectD.test.lua # Empty (all lines commented)
-selectG.test.lua # Converted (waiting for int 64 implementation)
 # sidedelete Not working. Don't know what to do.
 # Null not allowed in pk(2.), and UPDATE OR REPLACE works differently in tarantool(3.)
 sidedelete.test.lua # see above
@@ -178,7 +183,6 @@ tkt3824.test.lua # Waiting (test uses db status)
 tkt3832.test.lua # Waiting for triggers implenentation
 tkt3838.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table) and UTF 16 #2295
 tkt3892.test.lua # Waiting for int 64
-tkt3922.test.lua # Waiting for int 64
 tkt3992.test.lua # Converted(stored locally), but not working Depends on #2349 (alter table, triggers)
 tkt3997.test.lua # Waiting for built-in procedures and collations
 tkt-26ff0c2d1e.test.lua # Skip (do not know how to call prepared statement)
