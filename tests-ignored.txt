@@ -34,163 +34,162 @@ attach4.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be 
 attachmalloc.test.lua   # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
 autoinc.test.lua        # Waiting autoincrement #2263
 autoindex1.test.lua     # Waiting. Uses db status, tcl impl not pass tests
-autoindex2.test.lua     # FullyC. Waiting. Uses sqlite_master #2244
+autoindex2.test.lua     # not relevant. FullyC. Waiting. Uses sqlite_master #2244
 autoindex3.test.lua     # FullyC. Waiting. Uses sqlite_stat1, analyze... should it be it tarantool?
 autovacuum.test.lua     # Functionality isn't related to trntl.
 autovacuum_ioerr2.test.lua # Functionality isn't related to trntl.
 avtrans.test.lua        # Functionality isn't related to trntl.
-auth1.test.lua          # Fully commented. isn't related to tarantool?
-auth2.test.lua          # Fully commented. isn't related to tarantool?
-auth3.test.lua          # Fully commented. isn't related to tarantool?
-backcompat.test.lua     # do not related to tarantool
-backup1.test.lua        # Fully commented. Functionality doesn't related to trntl.
-backup2.test.lua        # Functionality doesn't related to trntl.
-backup4.test.lua        # Functionality doesn't related to trntl.
-backup5.test.lua        # Functionality doesn't related to trntl.
-backup_ioerr.test.lua   # Functionality doesn't related to trntl.
-backup_malloc.test.lua  # Functionality doesn't related to trntl.
-badutf2.test.lua        # waiting. uses prepared statements
-between.test.lua        # Waiting #2455 ( uses sqlite sort count)
-bigfile1.test.lua       # Fully commented. trntl's SQL doesn't deal with files at all.
-bigfile2.test.lua       # Fully commented. trntl's SQL doesn't deal with files at all.
-bind.test.lua           # Waiting. Uses prepared statements
-bindxfer.test.lua       # Waiting. Uses prepared statements
-btree01.test.lua        # Functionality isn't related to trntl. 
-btree02.test.lua        # Functionality isn't related to trntl. 
-btreefault.test.lua     # not related to tarantool
-busy.test.lua           # Waiting for transactions.
-cache.test.lua          # not related to tarantool?
-capi1.test.lua          # Fully commented. checks some vdbe functions. uses prep statements, sqlite_master 
-capi2.test.lua          # Fully commented. checks some vdbe functions. uses prep statements, sqlite_master 
-capi3.test.lua          # Fully commented. checks prepared statements, where sql encoded with utf16 
-close.test.lua          # Not related to tarantool? test close connection (sqlite3_close)
-closure01.test.lua      # Not related to tarantool. testing transitive_clousre extension for tree structured data
-collate1.test.lua       # Fully commented Do we not support collations? 
-collate2.test.lua       # Fully commented Do we not support collations? 
-collate3.test.lua       # Fully commented Do we not support collations? 
-collate4.test.lua       # Fully commented Do we not support collations? 
-collate5.test.lua       # Fully commented Do we not support collations? 
-collate6.test.lua       # Fully commented Do we not support collations? 
-collate7.test.lua       # Fully commented Do we not support collations? 
-collate8.test.lua       # Fully commented Do we not support collations? 
-collate9.test.lua       # Fully commented Do we not support collations? 
-collateA.test.lua       # Fully commented Do we not support collations? 
-colmeta.test.lua        # Fully commented. Do not related to T? tests sqlite3_table_column_metadata from main.c
-conflict.test.lua       # Waiting for #2495 and transactions
-conflict2.test.lua      # Fully commented, transactions
-conflict3.test.lua      # Fully commented
-coveridxscan.test.lua   # Sohuld be rewritten. Relies on sqlite internall staff (like rowid) (tcl version does not work)
-cost.test.local         # Should be rewritten, (delete row id, add pk influences test results)
-createtab.test.lua      # not related to tarantool? uses autavacuum, check that internal structs of new tables in sql do not affect old structures?
-default.test.lua        # fully commented, should be converted?
-delete2.test.lua        # fully commented, possible because of bad iterators in memtex
-descidx1.test.lua       # fully commented, not related to T
-descidx2.test.lua       # fully commented, not related to T
-descidx3.test.lua       # fully commented, not related to T
-e_changes.test.lua      # fully commented, should be converted?
-e_createtable.test.lua  # showld be rewritten (row id, pk)
-e_droptrigger.test.lua  # fully commented, should be converted? should be rewritten
-e_dropview.test.lua     # fully commented, should be converted? should be rewritten
-e_insert.test.lua       # fully commented, should be converted? should be rewritten
-e_fkey.test.lua         # fully commented, should be converted? should be rewritten
-e_totalchanges.test.lua # Waiting. access to total_changes func #2455 and reloads db a lot
-e_select2.test.lua      # Uses prep statm, a lot ot convert with hands
-e_update.test.lua       # Fully commented, should be converted? should be rewritten
-enc1.test.lua           # uses utf 16, convert data from one format to another
-enc2.test.lua           # fully commented, retrive data (not store) in different encodings
-enc3.test.lua           # uses utf 16
-enc4.test.lua           # Waiting for prep statements + uses utf16 
-eval.test.lua           # Waiting. Uses special built-in function test_eval, can be done with lua_sql
-exec.test.lua           # not needed in tarantool? tests sqlite3_exec function from legacy.c
-exists.test.lua         # fully commented. uses sqlite_master a lot
-expr.test.lua           # fully commented, waiting for transactions
-func4.test.lua          # not related to tarantool. tests load_static_extension totype
-func5.test.lua          # uses utf16
-fuzz-oss1.test.lua      # Waiting for autoincrement #2263
-fuzz1.test.lua          # fc. seems like a good test. should be uncommented? on hard to parse statements
-fuzz2.test.lua          # fc. should be uncommented?
-fuzz3.test.lua          # fc. checks db_checksumm before and after read operations. not related to T?
-index5.test.lua         # not related no tarantool? uses page_size
-indexexpr1.test.lua     # fully commented uses row id, sqlmaster... tests indexes on expressions! should be converted?
-insert2.test.lua  # Waiting for access to count_changes #2455, lua_sql
-insert3.test.lua  # FC. Waiting for pk autoincrement to replace rowid, or should be rewritten
-insert4.test.lua  # Fully commented, need access to sqlite3_xferopt_count
-insert5.test.lua  # Waiting for pk autoincrement
-icu.test.lua      # FC. waiting for transactions (regexp can be implemented as lua_sql I think)
-like.test.lua     # Waiting for #2455, uses sqlite_like_count a lot
-minmax.test.lua   # Waiting #2455, uses sqlite_search_count a lot
-misc2.test.lua    # fully commented, uses rowid, rollback
-misc4.test.lua    # fc. uses prep statements, statements, but should be converted?
-misc6.test.lua    # waiting, uses sqlite3 inner funcs, tests sqlite3_value_text, 50lines, is important?
-nan.test.lua      # Waiting. uses prepared statements a looot
-notnull.test.lua  # fully commented, should be rewritten? checks not null constraint
-numcast.test.lua  # check casting strings for utf, utf16le+be. Should be converted only for utf8 case?
-orderby7.test.lua # Not relevant. Test for FullTextSearcx (fts) which is not picked into Tarantool.
-ptrchng.test.lua  # Waiting. uses pointer_change func (removed with test1.c). Checks if pointer changes with type convertion?
-printf.test.lua   # uses sqlite3_mprintf_int (wich deleted with test1.c). Not relevant?
-quota-glob.test.lua # sqlite3_quota_glob was removed, should be rewritten? (I think could be rewritten with just GLOB sql operator)
-regexp.test.lua     # tests regexp extension. Colud be rewritten with lua_sql and lua regexp.
-rollback.test.lua   # FC, transactions are not implemented #2140
-rollback2.test.lua  # FC, transactions are not implemented #2140
-rollbackfault.test.lua  # Fully commented, transactions are not implemented #2140
-savepoint.test.lua  # Fully commented, transactions are not implemented #2140
-savepoint1.test.lua # Fully commented, transactions are not implemented #2140
-savepoint2.test.lua # Fully commented, transactions are not implemented #2140
-savepoint3.test.lua # Fully commented, transactions are not implemented #2140
-savepoint4.test.lua # Fully commented, transactions are not implemented #2140
-savepoint5.test.lua # Fully commented, transactions are not implemented #2140
-savepoint6.test.lua # Fully commented, transactions are not implemented #2140
-savepoint7.test.lua # Fully commented, transactions are not implemented #2140
-scanstatus.test.lua # Fully commented. Tests sqlite3_stmt_scanstatus, uses prep_statements
-selectD.test.lua # FC. should be converted?
+auth1.test.lua          # Fully commented. auth to be rewiewed later (post 1.8.3)
+auth2.test.lua          # Fully commented. 
+auth3.test.lua          # Fully commented. 
+backcompat.test.lua     # do not related to tarantool!
+backup1.test.lua        #3 Fully commented. Functionality doesn't related to trntl.
+backup2.test.lua        #3 Functionality doesn't related to trntl.
+backup4.test.lua        #3 Functionality doesn't related to trntl.
+backup5.test.lua        #3 Functionality doesn't related to trntl.
+backup_ioerr.test.lua   #3 Functionality doesn't related to trntl.
+backup_malloc.test.lua  #3 Functionality doesn't related to trntl.
+badutf2.test.lua        #1 waiting. uses prepared statements
+between.test.lua        #1 Waiting #2455 ( uses sqlite sort count)
+bigfile1.test.lua       #3 Fully commented. trntl's SQL doesn't deal with files at all.
+bigfile2.test.lua       #3 Fully commented. trntl's SQL doesn't deal with files at all.
+bind.test.lua           #4 Waiting. Uses prepared statements
+bindxfer.test.lua       #4 Waiting. Uses prepared statements
+btree01.test.lua        #3 Functionality isn't related to trntl. 
+btree02.test.lua        #3 Functionality isn't related to trntl. 
+btreefault.test.lua     #3 not related to tarantool
+busy.test.lua           #2 Waiting for transactions.
+cache.test.lua          #3 not related to tarantool?
+capi1.test.lua          #2.5 Fully commented. checks some vdbe functions. uses prep statements, sqlite_master 
+capi2.test.lua          #2.5 Fully commented. checks some vdbe functions. uses prep statements, sqlite_master 
+capi3.test.lua          #2.5 Fully commented. checks prepared statements, where sql encoded with utf16 
+close.test.lua          #3 Not related to tarantool? test close connection (sqlite3_close)
+closure01.test.lua      #2 Not related to tarantool. testing transitive_clousre extension for tree structured data
+collate1.test.lua       #2 Fully commented Do we not support collations? 
+collate2.test.lua       #2 Fully commented Do we not support collations? 
+collate3.test.lua       #2 Fully commented Do we not support collations? 
+collate4.test.lua       #2 Fully commented Do we not support collations? 
+collate5.test.lua       #2 Fully commented Do we not support collations? 
+collate6.test.lua       #2 Fully commented Do we not support collations? 
+collate7.test.lua       #2 Fully commented Do we not support collations? 
+collate8.test.lua       #2 Fully commented Do we not support collations? 
+collate9.test.lua       #2 Fully commented Do we not support collations? 
+collateA.test.lua       #2 Fully commented Do we not support collations? 
+colmeta.test.lua        #2.5 Fully commented. Do not related to T? tests sqlite3_table_column_metadata from main.c
+conflict.test.lua       #2 Waiting for #2495 and transactions
+conflict2.test.lua      #2 Fully commented, transactions
+conflict3.test.lua      #1 Fully commented
+coveridxscan.test.lua   #2 Sohuld be rewritten. Relies on sqlite internall staff (like rowid) (tcl version does not work)
+cost.test.local         #2.1 Should be rewritten, (delete row id, add pk influences test results)
+createtab.test.lua      #2.1 not related to tarantool? uses autavacuum, check that internal structs of new tables in sql do not affect old structures?
+default.test.lua        #1 fully commented, should be converted?
+delete2.test.lua        #2 fully commented, possible because of bad iterators in memtex
+descidx1.test.lua       #3 fully commented, not related to T
+descidx2.test.lua       #3 fully commented, not related to T
+descidx3.test.lua       #3 fully commented, not related to T
+e_changes.test.lua      #1 fully commented, should be converted?
+e_createtable.test.lua  #1 showld be rewritten (row id, pk)
+e_droptrigger.test.lua  #1 fully commented, should be converted? should be rewritten
+e_dropview.test.lua     #1 fully commented, should be converted? should be rewritten
+e_insert.test.lua       #1 fully commented, should be converted? should be rewritten
+e_fkey.test.lua         #1 fully commented, should be converted? should be rewritten
+e_totalchanges.test.lua #1 Waiting. access to total_changes func #2455 and reloads db a lot
+e_select2.test.lua      #1 Uses prep statm, a lot ot convert with hands
+e_update.test.lua       #1 Fully commented, should be converted? should be rewritten
+enc1.test.lua           #3 only utf8 enc in t.uses utf 16, convert data from one format to another
+enc2.test.lua           #3 fully commented, retrive data (not store) in different encodings
+enc3.test.lua           #3 uses utf 16
+enc4.test.lua           #2 Waiting for prep statements + uses utf16 
+eval.test.lua           #3 Waiting. Uses special built-in function test_eval, can be done with lua_sql
+exec.test.lua           #3 not needed in tarantool? tests sqlite3_exec function from legacy.c
+exists.test.lua         #2.5 fully commented. uses sqlite_master a lot
+expr.test.lua           #2 fully commented, waiting for transactions
+func4.test.lua          #4 not related to tarantool. tests load_static_extension totype
+func5.test.lua          #3 uses utf16
+fuzz-oss1.test.lua      #2 Waiting for autoincrement #2263
+fuzz1.test.lua          #1.9 fc. seems like a good test. should be uncommented? on hard to parse statements
+fuzz2.test.lua          #1.9 fc. should be uncommented?
+fuzz3.test.lua          #1.9 fc. checks db_checksumm before and after read operations. not related to T?
+index5.test.lua         #3 not related no tarantool? uses page_size
+indexexpr1.test.lua     #2 after fix bug fully commented uses row id, sqlmaster... tests indexes on expressions! should be converted?
+insert2.test.lua  #2 Waiting for access to count_changes #2455, lua_sql, transactions, temp tables
+insert3.test.lua  #1 FC. Waiting for pk autoincrement to replace rowid, or should be rewritten
+insert4.test.lua  #1 Fully commented, need access to sqlite3_xferopt_count (could be exported)
+insert5.test.lua  #2 Waiting for pk autoincrement
+icu.test.lua      #2 FC. waiting for transactions (regexp #2514)
+like.test.lua     #2 Waiting for #2455, uses sqlite_like_count a lot( waiting for export of sqlite vars)
+minmax.test.lua   #2 Waiting #2455, uses sqlite_search_count a lot
+misc2.test.lua    #2 fully commented, uses rowid, rollback
+misc4.test.lua    #1 fc. uses prep statements, statements, but should be converted? 
+misc6.test.lua    #2 waiting, uses sqlite3 inner funcs, tests sqlite3_value_text, 50lines, prep stat
+nan.test.lua      #2 Waiting. uses prepared statements a looot
+notnull.test.lua  #1 fully commented, should be rewritten? checks not null constraint
+numcast.test.lua  #1 check casting strings for utf, utf16le+be. Should be converted only for utf8 case?
+orderby7.test.lua #3 Not relevant. Test for FullTextSearcx (fts) which is not picked into Tarantool.
+ptrchng.test.lua  #3 Waiting. uses pointer_change func (removed with test1.c). Checks if pointer changes with type convertion?
+printf.test.lua   #2 uses sqlite3_mprintf_int (wich deleted with test1.c). Not relevant?
+quota-glob.test.lua #3 sqlite3_quota_glob was removed, should be rewritten? (I think could be rewritten with just GLOB sql operator)
+regexp.test.lua     #2 tests regexp extension. Colud be rewritten with lua_sql and lua regexp.
+rollback.test.lua   #2 FC, transactions are not implemented #2140
+rollback2.test.lua  #2 FC, transactions are not implemented #2140
+rollbackfault.test.lua  #2 Fully commented, transactions are not implemented #2140
+savepoint.test.lua  #4 Fully commented, transactions are not implemented #2140
+savepoint1.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint2.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint3.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint4.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint5.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint6.test.lua #4 Fully commented, transactions are not implemented #2140
+savepoint7.test.lua #4 Fully commented, transactions are not implemented #2140
+scanstatus.test.lua #2 Fully commented. Tests sqlite3_stmt_scanstatus, uses prep_statements
+selectD.test.lua #2 waiting temptable FC. should be converted?
 # sidedelete Not working. Don't know what to do.
-# Null not allowed in pk(2.), and UPDATE OR REPLACE works differently in tarantool(3.)
-# Now i find that it is also could be connected to iterators #2564
-sidedelete.test.lua # FC. see above
-skipscan1.test.lua  # Fully commented, uses sqlite_stat1, analyze
-skipscan2.test.lua  # Fully commented, not shere why. May be because analyze is not implemented
-skipscan3.test.lua  # Fully commented, not shere why. May be because analyze is not implemented
-sort2.test.lua      # Fully commented, multi-threaded sorting
-sort3.test.lua      # FC, sort huge arrays while mmap limit is 5mb, looks like a good test
-sort4.test.lua      # Fully commented, multi-threaded sorting works, prep stat
-sort5.test.lua      # Fully commented, not related to tarantool, tests legacy sqlite3_io_methods 
-sortfault.test.lua  # FC. uses a lot of sqlite3 staff. looks like good test, tests faults during sort?
-speed1.test.lua     # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-speed2.test.lua     # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-speed3.test.lua     # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-speed4.test.lua     # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-speed4p.test.lua    # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-speed4pexplain.test.lua # Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
-subtupe1.test.lua   # uses internal test_getsubtype func (removed with test_func.c)
-tableapi.test.lua   # uses sqlite3 specific funcs a lot sqlite3_exec_printf, sqlite3_get_table_printf (removed with test1.c)
-temptable.test.lua    # Fully commented, waiting for implementation of temp_tables, uses sql_master a lot
-temptrigger.test.lua  # Fully commented, test problems with temp triggers and multiple connections...
-tkt2213.test.lua # Ignored as related to tcl. this test case should be added to lua_sql test
-tkt2643.test.lua # FC. Waiting. Testing analyze feature and statistics.
-tkt2251.test.lua # Converted(stored in waiting branch), but not workung. Depends on #2349, altertable
-tkt3718.test.lua # Waiting. problem with iterators, converted(waiting branch)
-tkt3824.test.lua # Waiting (test uses db status sort)
-tkt3832.test.lua # tests case with inserting null to pk by trigger. Not related to T
-tkt3838.test.lua # Converted(stored in waiting branch), but not working Depends on #2349 (alter table) and UTF 16 #2295
-tkt3992.test.lua # Converted(stored in waiting branch), but not working Depends on #2349 (alter table, triggers)
-tkt3997.test.lua # Waiting for collations
-tkt-26ff0c2d1e.test.lua # prepared statement
-tkt-2a5629202f.test.lua # Waiting cksort (test uses db status) 
-tkt-2ea2425d34.test.lua # uses UTF 16 #2295, not related to T
-tkt-3fe897352e.test.lua # inserting UTF 16 in utf8 bd
-tkt-7bbfb7d442.test.lua # Converted, half of the test do not work, do not why. Hard to find out. Need time for research
-tkt-8454a207b9.test.lua # Waiting for #2363 int64, #2349 alter table 
-tkt-b72787b1.test.lua   # prepared statement
-tkt-f67b41381a.test.lua # Not converted. Waiting #2349 (alter table)
-tkt-f777251dc7a.test.lua # Waiting for transactions
-trigger3.test.lua # Waiting for transacrions (in triggers)
-trigger6.test.lua # Need #2233 to be implemented (Now looks like could be implemented with lua_sql)
-types3.test.lua   # should be rewritten. (do not know how tcl passes args properly)
-varint.test.lua   # not ralated to tarantool (testing btree, see test3.c, btree_varint_test)
-where.test.lua    # waiting for #2455 (search_count)
-where8.test.lua # Need #2455 (sqlite_search count)
-where9.test.lua # uses db status sort, db status step
-whereE.test.lua # Fully commented, uses alter table, analyze and not uses pk 
-whereH.test.lua # Fully commented, probably because of #2289 (index on all columns)
-whereJ.test.lua # Fully commented, uses insert into sqlite_stat1,4
-wherelimit.test.lua # This sqlite option is turned off in tarantool (SQLITE_ENABLE_UPDATE_DELETE_LIMIT is not defined) 
+# Null not allowed in pk(2.), and UPDATE OR REPLACE works differently in tarantool(3.) #2518
+sidedelete.test.lua #2 FC. see above
+skipscan1.test.lua  #2 Fully commented, uses sqlite_stat1, analyze
+skipscan2.test.lua  #2 Fully commented, not sure why. May be because analyze is not implemented
+skipscan3.test.lua  #2 Fully commented, not sure why. May be because analyze is not implemented
+sort2.test.lua      #1 Fully commented, multi-threaded sorting
+sort3.test.lua      #2(4) FC, sort huge arrays while mmap limit is 5mb, looks like a good test
+sort4.test.lua      #2(4) Fully commented, multi-threaded sorting works, prep stat
+sort5.test.lua      #2(4) Fully commented, not related to tarantool, tests legacy sqlite3_io_methods 
+sortfault.test.lua  #2(4) FC. uses a lot of sqlite3 staff. looks like good test, tests faults during sort?
+speed1.test.lua     #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+speed2.test.lua     #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+speed3.test.lua     #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+speed4.test.lua     #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+speed4p.test.lua    #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+speed4pexplain.test.lua #4 Fully commented, uses a lot of sqlite internall staff. tests speed, showuld be rewritten
+subtupe1.test.lua   #3 uses internal test_getsubtype func (removed with test_func.c)
+tableapi.test.lua   #4 uses sqlite3 specific funcs a lot sqlite3_exec_printf, sqlite3_get_table_printf (removed with test1.c)
+temptable.test.lua    #2 Fully commented, waiting for implementation of temp_tables, uses sql_master a lot
+temptrigger.test.lua  #2 Fully commented, test problems with temp triggers and multiple connections...
+tkt2213.test.lua #1 Ignored as related to tcl. this test case should be added to lua_sql test
+tkt2643.test.lua #3 FC. Waiting. Testing analyze feature and statistics.
+tkt2251.test.lua #2 Converted(stored in waiting branch), but not workung. Depends on #2349, altertable
+tkt3718.test.lua #2 Waiting. problem with iterators, converted(waiting branch)
+tkt3824.test.lua #2 Waiting (test uses db status sort)
+tkt3832.test.lua #3 tests case with inserting null to pk by trigger. Not related to T
+tkt3838.test.lua #2 Converted(stored in waiting branch), but not working Depends on #2349 (alter table) and UTF 16 #2295
+tkt3992.test.lua #2 Converted(stored in waiting branch), but not working Depends on #2349 (alter table, triggers)
+tkt3997.test.lua #2 Waiting for collations
+tkt-26ff0c2d1e.test.lua #2 prepared statement
+tkt-2a5629202f.test.lua #2 Waiting cksort (test uses db status) 
+tkt-2ea2425d34.test.lua #3 uses UTF 16 #2295, not related to T
+tkt-3fe897352e.test.lua #3 inserting UTF 16 in utf8 bd
+tkt-7bbfb7d442.test.lua #1 Converted, half of the test do not work, do not why. Hard to find out. Need time for research
+tkt-8454a207b9.test.lua #2 Waiting for #2363 int64, #2349 alter table 
+tkt-b72787b1.test.lua   #2 prepared statement
+tkt-f67b41381a.test.lua #2 Not converted. Waiting #2349 (alter table)
+tkt-f777251dc7a.test.lua #2 Waiting for transactions
+trigger3.test.lua #2 Waiting for transacrions (in triggers)
+trigger6.test.lua #1 Need #2233 to be implemented (Now looks like could be implemented with lua_sql)
+types3.test.lua   #2 postponed should be rewritten. (do not know how tcl passes args properly)
+varint.test.lua   #3 not ralated to tarantool (testing btree, see test3.c, btree_varint_test)
+where.test.lua    #2 waiting for #2455 (search_count)
+where8.test.lua #2 Need #2455 (sqlite_search count)
+where9.test.lua #2 uses db status sort, db status step
+whereE.test.lua #2 Fully commented, uses alter table, analyze and not uses pk 
+whereH.test.lua #2 Fully commented, probably because of #2289 (index on all columns)
+whereJ.test.lua #2 Fully commented, uses insert into sqlite_stat1,4
+wherelimit.test.lua #1 and need to enable delete_limit in source This sqlite option is turned off in tarantool (SQLITE_ENABLE_UPDATE_DELETE_LIMIT is not defined) 
