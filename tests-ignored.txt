@@ -1,48 +1,48 @@
-8_3_names.test.lua    # Fully commented, uses exten wholenumber, transactions, cache_size
-aggerror.test.lua     # waiting (uses sqlite3_create_aggregate, deleted with test1.c)
-alias.test.lua        # waiting in waiting brunch, calls sequence() method more times than expected
-altermalloc.test.lua  # waiting for alter table #2349
-alter1.test.lua       # waiting for alter table #2349
-alter2.test.lua       # waiting for alter table #2349
-alter3.test.lua       # waiting for alter table #2349
-alter4.test.lua       # waiting for alter table #2349
-amatch1.test.lua      # fully commented (full text search), extens amatch
-analyze1.test.lua     # fullyC uses analyze, not related to t
-analyze3.test.lua     # fullyC uses analyze, not related to t
-analyze4.test.lua     # fullyC uses analyze, not related to t
-analyze5.test.lua     # fullyC uses analyze, not related to t
-analyze6.test.lua     # fullyC uses analyze, not related to t
-analyze7.test.lua     # fullyC uses analyze, not related to t
-analyze8.test.lua     # fullyC uses analyze, not related to t
-analyze9.test.lua     # fullyC uses analyze, not related to t
-analyzeA.test.lua     # fullyC uses analyze, not related to t
-analyzeB.test.lua     # fullyC uses analyze, not related to t
-analyzeC.test.lua     # fullyC uses analyze, not related to t
-analyzeD.test.lua     # fullyC uses analyze, not related to t
-analyzeE.test.lua     # fullyC uses analyze, not related to t
-analyzeF.test.lua     # fullyC uses analyze, not related to t
-analyzer1.test.lua    # tests some "analyzer" binary (not sqlite)
-async1.test.lua         # not connected to T. it is like test runner?
-async2.test.lua         # Probably not necessqry, work with sqlite files
-async3.test.lua         # Probably not necessqry, work with sqlite files
-async4.test.lua         # Probably not necessqry, work with sqlite files
-async5.test.lua         # Probably not necessqry, work with sqlite files
-attach1.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-attach2.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-attach3.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-attach4.test.lua        # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-attachmalloc.test.lua   # Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
-autoinc.test.lua        # Waiting autoincrement #2263
-autoindex1.test.lua     # Waiting. Uses db status, tcl impl not pass tests
-autoindex2.test.lua     # not relevant. FullyC. Waiting. Uses sqlite_master #2244
-autoindex3.test.lua     # FullyC. Waiting. Uses sqlite_stat1, analyze... should it be it tarantool?
-autovacuum.test.lua     # Functionality isn't related to trntl.
-autovacuum_ioerr2.test.lua # Functionality isn't related to trntl.
-avtrans.test.lua        # Functionality isn't related to trntl.
-auth1.test.lua          # Fully commented. auth to be rewiewed later (post 1.8.3)
-auth2.test.lua          # Fully commented. 
-auth3.test.lua          # Fully commented. 
-backcompat.test.lua     # do not related to tarantool!
+8_3_names.test.lua    #3 Fully commented, uses exten wholenumber, transactions, cache_size
+aggerror.test.lua     #2 waiting (uses sqlite3_create_aggregate, deleted with test1.c)
+alias.test.lua        #2 waiting in waiting brunch, calls sequence() method more times than expected
+altermalloc.test.lua  #2 waiting for alter table #2349
+alter1.test.lua       #2 waiting for alter table #2349
+alter2.test.lua       #2 waiting for alter table #2349
+alter3.test.lua       #2 waiting for alter table #2349
+alter4.test.lua       #2 waiting for alter table #2349
+amatch1.test.lua      #3 fully commented (full text search), extens amatch
+analyze1.test.lua     #2 fullyC uses analyze, not related to t
+analyze3.test.lua     #2 fullyC uses analyze, not related to t
+analyze4.test.lua     #2 fullyC uses analyze, not related to t
+analyze5.test.lua     #2 fullyC uses analyze, not related to t
+analyze6.test.lua     #2 fullyC uses analyze, not related to t
+analyze7.test.lua     #2 fullyC uses analyze, not related to t
+analyze8.test.lua     #2 fullyC uses analyze, not related to t
+analyze9.test.lua     #2 fullyC uses analyze, not related to t
+analyzeA.test.lua     #2 fullyC uses analyze, not related to t
+analyzeB.test.lua     #2 fullyC uses analyze, not related to t
+analyzeC.test.lua     #2 fullyC uses analyze, not related to t
+analyzeD.test.lua     #2 fullyC uses analyze, not related to t
+analyzeE.test.lua     #2 fullyC uses analyze, not related to t
+analyzeF.test.lua     #2 fullyC uses analyze, not related to t
+analyzer1.test.lua    #3 tests some "analyzer" binary (not sqlite)
+async1.test.lua         #3 not connected to T. it is like test runner?
+async2.test.lua         #3 Probably not necessqry, work with sqlite files
+async3.test.lua         #3 Probably not necessqry, work with sqlite files
+async4.test.lua         #3 Probably not necessqry, work with sqlite files
+async5.test.lua         #3 Probably not necessqry, work with sqlite files
+attach1.test.lua        #3 Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach2.test.lua        #3 Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach3.test.lua        #3 Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attach4.test.lua        #3 Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+attachmalloc.test.lua   #3 Fully commented. ATTACH/DETACH are not supposed to be supported in trntl.
+autoinc.test.lua        #2 Waiting autoincrement #2263
+autoindex1.test.lua     #2 Waiting. Uses db status, tcl impl not pass tests
+autoindex2.test.lua     #2? not relevant. FullyC. Waiting. Uses sqlite_master. sqlite_stat1 #2244
+autoindex3.test.lua     #2? FullyC. Waiting. Uses sqlite_stat1, analyze... should it be it tarantool?
+autovacuum.test.lua     #3 Functionality isn't related to trntl.
+autovacuum_ioerr2.test.lua #3 Functionality isn't related to trntl.
+avtrans.test.lua        #3 Functionality isn't related to trntl.
+auth1.test.lua          #4 Fully commented. auth to be rewiewed later (post 1.8.3)
+auth2.test.lua          #4 Fully commented. 
+auth3.test.lua          #4 Fully commented. 
+backcompat.test.lua     #3 do not related to tarantool!
 backup1.test.lua        #3 Fully commented. Functionality doesn't related to trntl.
 backup2.test.lua        #3 Functionality doesn't related to trntl.
 backup4.test.lua        #3 Functionality doesn't related to trntl.
@@ -114,7 +114,7 @@ index5.test.lua         #3 not related no tarantool? uses page_size
 indexexpr1.test.lua     #2 after fix bug fully commented uses row id, sqlmaster... tests indexes on expressions! should be converted?
 insert2.test.lua  #2 Waiting for access to count_changes #2455, lua_sql, transactions, temp tables
 insert3.test.lua  #1 FC. Waiting for pk autoincrement to replace rowid, or should be rewritten
-insert4.test.lua  #1 Fully commented, need access to sqlite3_xferopt_count (could be exported)
+insert4.test.lua  #1 Fully commented, need access to sqlite3_xferopt_count (#2455 could be exported)
 insert5.test.lua  #2 Waiting for pk autoincrement
 icu.test.lua      #2 FC. waiting for transactions (regexp #2514)
 like.test.lua     #2 Waiting for #2455, uses sqlite_like_count a lot( waiting for export of sqlite vars)
