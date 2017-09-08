@@ -1,8 +1,5 @@
 # 1 - TODO tests
 badutf2.test.lua        #1 waiting. uses prepared statements
-between.test.lua        #1 Waiting #2455 ( uses sqlite sort count)
-conflict3.test.lua      #1 Fully commented
-default.test.lua        #1 fully commented, should be converted?
 e_changes.test.lua      #1 fully commented, should be converted?
 e_createtable.test.lua  #1 showld be rewritten (row id, pk)
 e_droptrigger.test.lua  #1 fully commented, should be converted? should be rewritten
@@ -12,11 +9,9 @@ e_fkey.test.lua         #1 fully commented, should be converted? should be rewri
 e_totalchanges.test.lua #1 Waiting. access to total_changes func #2455 and reloads db a lot
 e_select2.test.lua      #1 Uses prep statm, a lot ot convert with hands
 e_update.test.lua       #1 Fully commented, should be converted? should be rewritten
-insert3.test.lua  #1 FC. Waiting for pk autoincrement to replace rowid, or should be rewritten
 insert4.test.lua  #1 Fully commented, need access to sqlite3_xferopt_count (#2455 could be exported)
 misc4.test.lua    #1 fc. uses prep statements, statements, but should be converted? 
 notnull.test.lua  #1 fully commented, should be rewritten? checks not null constraint
-numcast.test.lua  #1 check casting strings for utf, utf16le+be. Should be converted only for utf8 case?
 sort2.test.lua      #1 Fully commented, multi-threaded sorting
 tkt2213.test.lua #1 Ignored as related to tcl. this test case should be added to lua_sql test
 tkt-7bbfb7d442.test.lua #1 Converted, half of the test do not work, do not why. Hard to find out. Need time for research
