@@ -1,4 +1,13 @@
 # 1 - TODO tests
+analyze7.test.lua     #1 fullyC uses analyze, not related to t
+analyze9.test.lua     #1 fullyC uses analyze, not related to t
+analyzeA.test.lua     #1 fullyC uses analyze, not related to t
+analyzeB.test.lua     #1 fullyC uses analyze, not related to t
+analyzeC.test.lua     #1 fullyC uses analyze, not related to t
+analyzeD.test.lua     #1 fullyC uses analyze, not related to t
+analyzeE.test.lua     #1 fullyC uses analyze, not related to t
+analyzeF.test.lua     #1 fullyC uses analyze, not related to t
+autoinc.test.lua        #2 Waiting autoincrement #2263
 badutf2.test.lua        #1 waiting. uses prepared statements
 e_changes.test.lua      #1 fully commented, should be converted?
 e_createtable.test.lua  #1 showld be rewritten (row id, pk)
@@ -48,21 +57,6 @@ alter1.test.lua       #2 waiting for alter table #2349
 alter2.test.lua       #2 waiting for alter table #2349
 alter3.test.lua       #2 waiting for alter table #2349
 alter4.test.lua       #2 waiting for alter table #2349
-analyze1.test.lua     #1 fullyC uses analyze, not related to t
-analyze3.test.lua     #1 fullyC uses analyze, not related to t
-analyze4.test.lua     #1 fullyC uses analyze, not related to t
-analyze5.test.lua     #1 fullyC uses analyze, not related to t
-analyze6.test.lua     #1 fullyC uses analyze, not related to t
-analyze7.test.lua     #1 fullyC uses analyze, not related to t
-analyze8.test.lua     #1 fullyC uses analyze, not related to t
-analyze9.test.lua     #1 fullyC uses analyze, not related to t
-analyzeA.test.lua     #1 fullyC uses analyze, not related to t
-analyzeB.test.lua     #1 fullyC uses analyze, not related to t
-analyzeC.test.lua     #1 fullyC uses analyze, not related to t
-analyzeD.test.lua     #1 fullyC uses analyze, not related to t
-analyzeE.test.lua     #1 fullyC uses analyze, not related to t
-analyzeF.test.lua     #1 fullyC uses analyze, not related to t
-autoinc.test.lua        #2 Waiting autoincrement #2263
 autoindex1.test.lua     #1 Waiting. Uses db status, tcl impl not pass tests
 autoindex2.test.lua     #1 not relevant. FullyC. Waiting. Uses sqlite_master. sqlite_stat1 #2244
 autoindex3.test.lua     #1 FullyC. Waiting. Uses sqlite_stat1, analyze... should it be it tarantool?
