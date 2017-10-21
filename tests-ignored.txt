@@ -1,12 +1,4 @@
 # 1 - TODO tests
-analyze7.test.lua     #1 fullyC uses analyze, not related to t
-analyze9.test.lua     #1 fullyC uses analyze, not related to t
-analyzeA.test.lua     #1 fullyC uses analyze, not related to t
-analyzeB.test.lua     #1 fullyC uses analyze, not related to t
-analyzeC.test.lua     #1 fullyC uses analyze, not related to t
-analyzeD.test.lua     #1 fullyC uses analyze, not related to t
-analyzeE.test.lua     #1 fullyC uses analyze, not related to t
-analyzeF.test.lua     #1 fullyC uses analyze, not related to t
 autoinc.test.lua        #2 Waiting autoincrement #2263
 badutf2.test.lua        #1 waiting. uses prepared statements
 e_changes.test.lua      #1 fully commented, should be converted?
